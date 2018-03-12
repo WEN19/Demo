@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0">
+	<link rel="stylesheet" href="http://8.url.cn/edu/classroom/assets/lib/reset.css">
+    <link rel="stylesheet" href="style.css">
+    <title>个人简历</title>
+
+    <style>
+@font-face {
+    font-family: 'icomoon';
+    src: url('fonts/icomoon.eot?42xx4p');
+    src: url('fonts/icomoon.eot?42xx4p#iefix') format('embedded-opentype'), url('fonts/icomoon.ttf?42xx4p') format('truetype'), url('fonts/icomoon.woff?42xx4p') format('woff'), url('fonts/icomoon.svg?42xx4p#icomoon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+[class^="-icon"],
+[class*="-icon"] {
+    font-family: 'icomoon', serif !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    /* 以下为自定义的属性
+    水平、垂直居中 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    width: 24px;
+    height: 24px;
+    border: 1px solid white;
+    border-radius: 50%;
+    margin: 5px 10px;
+}
+
+body {
+    display: flex;
+    min-width: 350px;
+    align-items: stretch;  /*垂直方向布满整个页面*/
+}
+@media (min-width: 751px) {
+    body {
+        flex-direction: row;
+    }
+}
+
+/* 小屏时纵向排列 */
+@media (max-width: 750px) {
+    body {
+        flex-direction: column;
+    }
+
+  /*小屏时固定首页的高度*/ 
+header {
+        height: 100vh;  /*100%的视口高度*/
+    }
+}
+
+header{
+	color:#fff;
+	background: url(http://coding.imweb.io/img/project/resume/bg.png) repeat;
+	background-color:#188eee;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction:column;
+}
+.sec1{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 20px;
+
+}
+.photo{
+	display: inline-block;
+	width:100px;
+	height:100px;
+	background: url(http://coding.imweb.io/img/project/resume/avatar.png) no-repeat;
+	background-size: cover;
+	border-radius: 50%;
+	/*border:5px solid #5db0f3;*/
+	box-shadow: 0 0 0 5px #5db0f3;
+	margin-bottom: 10px;
+}
+/* 手机的icon */
+.tele-icon::before {
+    content: "\1f5f7";
+}
+
+/* email的icon */
+.email-icon::before {
+    content: "\1f5f8";
+}
+
+/* 个人主页的icon */
+.site-icon::before {
+    content: "\1f5f9";
+}
+.contact-item {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.sec3 div{
+	display: flex;
+	flex-wrap: wrap;
+    /*双重边框*/
+    width: 300px;
+    border: 1px solid #0e6ab8;
+    box-shadow: 0 0 0 1px #2b9eff;
+    border-radius: 5px;
+    padding: 12px 5px;
+    margin: 10px 15px;
+}
+.sec3 span{
+	flex-basis: 35%;
+	flex-grow:1;
+}
+@keyframes photoF {
+    0% {
+        box-shadow: 0 0 5px 5px #5db0f3;
+    }
+
+    25% {
+        box-shadow: 0 0 10px 10px #5db0f3;
+    }
+
+    50% {
+        box-shadow: 0 0 5px 5px #5db0f3;
+    }
+
+    75% {
+        box-shadow: 0 0 0 0 #5db0f3;
+    }
+
+    100% {
+        box-shadow: 0 0 5px 5px #5db0f3;
+    }
+}
+.photo:hover {
+    animation: photoF 1.5s linear infinite;
+}
+
+.jobexp,
+.skills {
+    margin: 30px auto;
+}
+
+/* 大概设置一下字体和边距 */
+.details {
+    position: relative;
+    margin: 10px 20px 0 35px;
+}
+
+.details p {
+    font-size: 18px;
+}
+
+.job-det {
+    padding-left: 15px;
+}
+
+.detail-tt {
+    height: 40px;
+    margin-top: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+.detail-tt::before {
+    content: "";
+    width: 100%;
+    height: 1px;
+    background-color: #ccc;
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    z-index: 1;
+}
+/* 给标题设置成inline-block，有一定的宽高 */
+.detail-tt span {
+    display: inline-block;
+    position: absolute;
+    padding: 10px;
+    color: #188eee;
+    background-color: #f5f5f5;
+    font-size: 20px;
+    z-index: 2;
+}
+p.jobexp-txt {
+    color: #999;
+    font-size: 15px;
+    margin: 10px 0 25px;
+}
+.job-det::before{
+	content:"";
+	display: block;
+	position:absolute;
+	z-index: 1;
+	top: 0.5em;
+    left: 0;
+	height:100%;
+	width:1px;
+	background-image: linear-gradient(to bottom, #ccc 80%, #f5f5f5)
+}
+.job-det h3::before{
+	content:"";
+	display: block;
+	position: absolute;
+	transform: translate(-19.5px, 3px);
+	width:10px;
+	height:10px;
+	border-radius: 50%;
+	background-color: #188eee;
+	z-index: 2;
+	box-shadow: 0 0 0 3px rgab(24,142,238,0.2);
+
+}
+/* 各项工作经历hover时，小蓝点执行动画 */
+/* 工作经历中小蓝点的动画 */
+@keyframes circleF {
+    0% {
+        box-shadow: 0 0 3px 3px rgba(24, 142, 238, 0.5);
+    }
+
+    25% {
+        box-shadow: 0 0 5px 5px rgba(24, 142, 238, 0.5);
+    }
+
+    50% {
+        box-shadow: 0 0 3px 3px rgba(24, 142, 238, 0.5);
+    }
+
+    75% {
+        box-shadow: 0 0 1px 1px rgba(24, 142, 238, 0.5);
+    }
+
+    100% {
+        box-shadow: 0 0 3px 3px rgba(24, 142, 238, 0.2);
+    }
+}
+.job-det article:hover h3::before {
+    animation: circleF 1.5s linear infinite;
+}
+
+/* 三项技能外层的容器
+设置下外边距，用来放进度条 */
+.skills-box {
+    margin-bottom: 45px;
+}
+
+/* 了解、精通、熟悉用伪元素生成，样式统一，content单独填充 */
+.skills-box::before {
+    display: block;
+    position: absolute;
+    width: 35px;
+    right: 0;
+    text-align: center;
+    font-size: 10px;
+    color: #999;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+/* 分别填充内容，样式统一 */
+.skills-ps::before {
+    content: "了解";
+}
+
+.skills-hc::before {
+    content: "精通";
+}
+
+.skills-js::before {
+    content: "熟悉";
+}
+
+/* 灰色的进度条背景 */
+.skills-box::after {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 4px;
+    transform: translateY(10px);
+    background-color: #ccc;
+    border-radius: 2px;
+}
+
+/* 蓝色的进度条，样式统一，宽度暂未设置 */
+.skills-progress {
+    content: "";
+    display: block;
+    position: absolute;
+    height: 4px;
+    transform: translateY(10px);
+    background-image: linear-gradient(to right, #117ad4, #10b1ed);
+    border-radius: 2px;
+    z-index: 2;
+}
+
+/* 第一个进度条的动画 */
+@keyframes skill-ps {
+    0% {
+        width: 0;
+    }
+
+    100% {
+        width: 20%;
+    }
+}
+
+/* 第二个进度条的动画 */
+@keyframes skill-hc {
+    0% {
+        width: 0;
+    }
+
+    100% {
+        width: 90%;
+    }
+}
+
+/* 第三个进度条的动画 */
+@keyframes skill-js {
+    0% {
+        width: 0;
+    }
+
+    100% {
+        width: 50%;
+    }
+}
+
+/* 设置第一个进度条的初始长度 */
+.skills-ps .skills-progress {
+    width: 20%;
+}
+
+/* 设置第二个进度条的初始长度 */
+.skills-hc .skills-progress {
+    width: 90%;
+}
+
+/* 设置第三个进度条的初始长度 */
+.skills-js .skills-progress {
+    width: 50%;
+}
+
+.skills-ps:hover .skills-progress {
+    animation: skill-ps 0.5s ease;
+}
+
+.skills-hc:hover .skills-progress {
+    animation: skill-hc 0.5s ease;
+}
+
+.skills-js:hover .skills-progress {
+    animation: skill-js 0.5s ease;
+}
+
+.skills-tt {
+    font-size: 18px;
+}
+
+p.skills-desc {
+    font-size: 15px;
+    color: #999;
+}
+
+</style>
+</head>
+<body>
+
+<!-- 蓝色背景的地方 -->
+<header>
+<section class="sec1">
+	<i class="photo"></i>
+	<p class="sec1-title">青蓝</p>
+	<p class="sec1-detail">念经(coding)、参禅(thinking)、化缘(searching)</p>
+</section>
+
+<section class="sec2">
+     <div class="contact-item contact-email">
+        <i class="email-icon"></i>
+        <span class="email-txt">ycxu@imweb.io</span>
+     </div>
+     <div class="contact-item contact-tele">
+        <i class="tele-icon"></i>
+        <span class="tele-txt">15989012552</span>
+      </div>
+      <div class="contact-item contact-site">
+        <i class="site-icon"></i>
+        <span class="site-txt">https://github.com/imweb</span>
+      </div>
+</section>
+
+<section class="sec3">
+<div>
+        <span>学历：本科</span>
+        <span>工作年限：4年</span>
+        <span>毕业院校：青岛大学</span>
+        <span>出生年月：1990年8月</span>
+</div>
+</section>
+</header>
+
+<main>    <!-- 详细信息 -->
+            <section class="jobexp">    <!-- 工作经历 -->
+                <h2 class="detail-tt jobexp-tt"><span>工作经历</span></h2>
+                <div class="job-det details">
+                    <article class="jobexp-now">
+                        <h3>2014.08 — 至今</h3>
+                        <p>腾讯科技(深圳)有限公司 / 产品策划</p>
+                        <p class="jobexp-txt">负责腾讯课堂教研功能的策划；能熟练对接用户及运营侧，规划版本，推进需求落地，并根据数据及用户反馈优化功能；所负责功能覆盖PC客户端、PCWeb、APP、H5。</p>
+                    </article>
+                    <article class="jobexp-past">
+                        <h3>2013.07 — 2013.10</h3>
+                        <p>腾讯科技深圳有限公司 / 产品实习生</p>
+                        <p class="jobexp-txt">QQ群商业化探索（在线教育方向） 负责QQ群商业化探索，调研用户使用QQ群进行在线教育的情况，由于实习期间表现良好得以留用。调研结果帮助项目组决策，加大投入在线教育的资源，并在之后成立了腾讯课堂项目。</p>
+                    </article>
+                </div>
+            </section>
+
+            <section class="skills">    <!-- 技能特长 -->
+                <h2 class="detail-tt skills-tt"><span>技能特长</span></h2>
+                <div class="skills-det details">
+                    <article class="skills-box skills-ps">
+                        <p class="skills-tt">PS</p>
+                        <p class="skills-desc">基本切图</p>
+                        <span class="skills-progress"></span>
+                    </article>
+                    <article class="skills-box skills-hc">
+                        <p class="skills-tt">HTML & CSS</p>
+                        <p class="skills-desc">语义化、CSS3、动画、响应式、移动端、预处理器…</p>
+                        <span class="skills-progress"></span>
+                    </article>
+                    <article class="skills-box skills-js">
+                        <p class="skills-tt">Javascript</p>
+                        <p class="skills-desc">jquery、node、react、vue、webpack…</p>
+                        <span class="skills-progress"></span>
+                    </article>
+                </div>
+            </section>
+        </main>
+
+
+</body>
+</html>
