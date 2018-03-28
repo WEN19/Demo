@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>圣杯布局</title>
+	<style type="text/css">
+	*{
+		margin:0;
+		padding:0;
+		list-style: none;
+		box-sizing: border-box;
+	}
+	#container{
+		background-color: #eee;
+		padding:20px 180px 20px 220px;  /*在原有的基础上每个值都加20px*/
+		overflow: hidden;
+		text-align: center;
+
+
+	}
+	.col{
+		float:left;
+		position: relative;
+		border:1px solid #999;
+		background-color: #fff;
+	}
+	#main{
+		width:100%;
+		left:20px;  /*空出来左边和中间的20px的空隙*/
+
+	}
+	#left{
+		width:200px;
+		margin-left: -100%;
+		left:-200px;
+		padding-top: 20px;
+	}
+	#right{
+		width:120px;
+		margin-left: -120px;
+		right:-160px;  /*在原有基础上加上40px使得右边和中间留有20px空隙*/
+	}
+	#right li{
+		margin:20px 0 20px 0;
+
+
+	</style>
+</head>
+<body>
+<div id="container">
+	<div id="main" class="col">
+		<h4>第一部分</h4>
+	    过放荡不羁的生活，容易得像顺水推舟，但是要结识良朋益友，却难如登天。 —— 巴尔扎克
+		生活有度，人生添寿。 —— 书摘
+		我读的书愈多，就愈亲近世界，愈明了生活的意义，愈觉得生活的重要。 —— 高尔基
+		人生的磨难是很多的，所以我们不可对于每一件轻微的伤害都过于敏感。在生活磨难面前，精神上的坚强和无动于衷是我们抵抗罪恶和人生意外的最好武器。 —— 洛克
+		人生并不像火车要通过每个站似的经过每一个生活阶段。人生总是直向前行走，从不留下什么。 —— 刘易斯
+		生活是一种绵延不绝的渴望，渴望不断上升，变得更伟大而高贵。 —— 杜伽尔
+		有所作为是生活的最高境界。 —— 恩格斯
+		<h4>第二部分</h4>
+        过放荡不羁的生活，容易得像顺水推舟，但是要结识良朋益友，却难如登天。 —— 巴尔扎克
+		生活有度，人生添寿。 —— 书摘
+		我读的书愈多，就愈亲近世界，愈明了生活的意义，愈觉得生活的重要。 —— 高尔基
+		人生的磨难是很多的，所以我们不可对于每一件轻微的伤害都过于敏感。在生活磨难面前，精神上的坚强和无动于衷是我们抵抗罪恶和人生意外的最好武器。 —— 洛克
+		人生并不像火车要通过每个站似的经过每一个生活阶段。人生总是直向前行走，从不留下什么。 —— 刘易斯
+		生活是一种绵延不绝的渴望，渴望不断上升，变得更伟大而高贵。 —— 杜伽尔
+		有所作为是生活的最高境界。 —— 恩格斯
+
+	</div>
+
+	<div id="left" class="col">
+			    <img src="img/avatar.jpg" alt="小猪呼呼队">
+			    <p>小猪呼呼队</p>
+	</div>
+	<div id="right" class="col">
+	    	<ul>
+	    		<li><img src="img/1.jpg" alt=""></li>
+	    		<li><img src="img/2.jpg" alt=""></li>
+	    		<li><img src="img/3.jpg" alt=""></li>
+	    		<li><img src="img/4.jpg" alt=""></li>
+	    	</ul>
+	</div>
+</div>
+
+</body>
+</html>
