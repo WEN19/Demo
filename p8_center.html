@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>水平垂直居中</title>
+<style type="text/css">
+
+.wrapper{
+	height:200px;
+	width:400px;
+	background-color: #ccc;
+	position: absolute;
+	top:50%;
+    margin-top: -100px;
+    left:50%;
+    margin-left:-200px;
+/*    margin:auto;
+    left:0;
+    top:0;
+    right:0;
+    bottom:0;*/
+    overflow: hidden;
+}
+.left-top{
+	height:100px;
+	width:100px;
+	border-radius: 50%;
+	background-color: #fc0;
+	position: absolute;
+	top:-50px;
+	left:-50px;
+
+}
+.right-bottom{
+	height:100px;
+	width:100px;
+	border-radius:50%;
+	background-color: #fc0;
+	position: absolute;
+	bottom:-50px;
+	right:-50px;
+}
+</style>
+
+</head>
+<body>
+<div class="wrapper">
+
+		<div class="left-top"></div>
+		<div class="right-bottom"></div>
+
+</div>
+
+</body>
+</html>
