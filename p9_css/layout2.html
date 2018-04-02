@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>页面布局练习</title>
+	<style>
+		*{
+			margin:0;
+			padding:0;
+				
+			
+		}
+		ul{
+			list-style: none;
+		}
+		body{
+			background-color: #dcdcdc;	
+		}
+		a{
+			text-decoration:none; 
+		}
+		footer{
+			width:100%;
+			text-align: center;
+			background-color: #000;
+			color:#fff;
+			display: block;
+			height:50px;
+			line-height: 50px;
+		}
+		.head{
+			background-color: #000;
+			overflow: hidden;
+			height:84px;
+			width:100%;
+		}
+		.head ul{
+			overflow: hidden;
+			display: inline-block;
+			float:right;
+		}
+		.head li{
+			float:right;
+			line-height: 84px;
+			margin:0 10px;
+		}
+		.head a{
+			color:#fff;
+		}
+		article{
+			overflow: hidden;
+			position:relative;
+		}
+		#left{
+			position:relative;
+			margin-right: 370px;
+
+		}
+		#right{
+			position:absolute;
+			width:300px;
+			top:0;
+			right:0;
+			border:1px solid #eee;
+			margin-right: 10px;
+		}
+		#top_one,#top_two,#top_three,#top_four,aside{
+			background-color: #fff;
+			border-style: solid;
+    		border-width: 1px 3px 3px 1px;
+    		border-color: darkgray;
+    		padding: 20px;
+    		margin: 20px 0;
+
+		}
+		#top_three{
+			overflow: hidden;
+
+		}
+
+		#top_three li{
+			float:left;
+			border:1px solid #999;
+			margin:10px;
+			padding: 10px;
+		}
+
+		input{
+		    margin-left: 10px;
+    		padding: 3px;
+    		font-size: 0.8em;
+		}
+		label{
+			display: inline-block;
+   		    padding-right: 3px;
+    		text-align: right;
+    		font-size: 0.8em;
+    		vertical-align: top;
+		}
+		form div{
+			margin: 20px 0;
+		}
+		span{
+			 color: gray;
+   			 margin-left: 10px;
+   			 font-size: 0.8em;
+
+		}
+		.submit input{
+			    background: royalblue;
+			    color: white;
+			    width: 95%;
+			    height: 40px;
+			    margin: 20px 0px;
+			    border-radius: 10px;
+			    border: 2px gray solid;
+		}
+		.submit{
+			text-align: center;
+		}
+		table{
+			width: 99%;
+		    text-align: left;
+		    border-collapse: collapse;
+		}
+		th{
+			background: black;
+		    color: white;
+		    padding: 5px;
+		    border: 1px lightgrey solid;
+         }
+
+		td{
+			    background: white;
+			    padding: 5px;
+			    border: 1px lightgrey solid;
+		}
+		.total{
+			    background: lightgrey;
+   				 font-weight: bold;
+}
+		}
+	</style>
+</head>
+<body>
+<!-- 网页导航栏 -->
+<header>
+	<nav class="head">
+		<img src="pic_task5/xidianlogo.jpg" alt="西电logo">
+		<ul>
+			<li><a href="#">导航链接四</a></li>
+			<li><a href="#">导航链接三</a></li>
+			<li><a href="#">导航链接二</a></li>
+			<li><a href="#">导航链接一</a></li>
+		</ul>
+	</nav>
+</header>
+<!-- 文章正文 -->
+	<article>
+		<main id="left">
+		<section id="top_one">
+
+			<h2>文章一级标题</h2>
+			<h3>文章二级标题</h3>
+			<span>文章作者</span>
+			<span>文章发表时间</span>
+			<p>
+			生命在于运动的内涵是：生命的产生在于运动，运动是生命诞生的前提条件，没有物质运动就不会有生命的产生；生命的存在在于运动，运动也是生命存在的基础，要维持生命体存在，也离不开物质运动；生命的发展在于运动，运动又是生命发展的动力和源泉。可以说，没有了运动，人就活不下去。<br/>
+            其外延是：生命运动不仅包括植物、动物、微生物运动，还包括人类生命体运动；对人体生命来说，<a href="https://baike.baidu.com/item/%E7%94%9F%E5%91%BD%E5%9C%A8%E4%BA%8E%E8%BF%90%E5%8A%A8/3440569?fr=aladdin">此处应该有链接</a>不仅指机械运动，还包括物理运动、化学运动、社会运动和思维运动；不仅包括宏观的躯体运动，更包括微观的细胞运动、分子运动等诸多运动形式。所以说生命在于运动。
+            </p>
+            <img src="pic_task5/sport.jpg" alt="运动图">
+            <p>运动是一门科学
+               人是动物，应该运动。但是，必须具体问题具体分析，有些人则不能运动或者说不能剧烈运动，比如：刚做完了大手术、严重心脑血管疾病、刚刚劳作一天、体质差、营养不良等等。中国的重要哲学思想“中庸之道”意思就是适量、张弛有度。对于一般人来说，运动太少或者过度都是有害的。有的人听专家说：“每天必须走一万步”，结果三个月后住院了，因运动量过大膝盖积水。2012年11月广州举办马拉松比赛导致两名年轻人因剧烈运动死亡。因过度运动致病、致死的人很多。每个人体质不同，一定要根据自己当时的体质决定运动量，运动必须个性化、科学化即个性化科学运动。<a href="http://ife.baidu.com/course/detail/id/96" target="blank">此处打开新的窗口</a>严格的讲，运动和饮食一样，都是一门个性化的科学。北京市身心智医学研究所所长、中国营养专家张金波说：“个性化科学运动应该是经过科学营养技术检查身体营养食物缺乏还是过剩来决定每个人运动量的多少，营养过剩则说明缺乏运动，而营养缺乏则绝对不能剧烈或长时间运动，体质差的人过量运动是非常有害的，头晕、摔倒甚至会猝死” [1]  。
+            </p>
+        </section>
+
+        <section id="top_two">
+        <h2>文章一级标题</h2>
+			<h3>文章二级标题</h3>
+			<span>文章作者</span>
+			<span>文章发表时间</span>
+			<p>
+			生命在于运动的内涵是：生命的产生在于运动，运动是生命诞生的前提条件，没有物质运动就不会有生命的产生；生命的存在在于运动，运动也是生命存在的基础，要维持生命体存在，也离不开物质运动；生命的发展在于运动，运动又是生命发展的动力和源泉。可以说，没有了运动，人就活不下去。<br/>
+            其外延是：生命运动不仅包括植物、动物、微生物运动，还包括人类生命体运动；对人体生命来说，<a href="https://baike.baidu.com/item/%E7%94%9F%E5%91%BD%E5%9C%A8%E4%BA%8E%E8%BF%90%E5%8A%A8/3440569?fr=aladdin">此处应该有链接</a>不仅指机械运动，还包括物理运动、化学运动、社会运动和思维运动；不仅包括宏观的躯体运动，更包括微观的细胞运动、分子运动等诸多运动形式。所以说生命在于运动。
+            </p>
+            <img src="pic_task5/sport.jpg" alt="运动图">
+            <ul>
+			<li>列表项目一</li>
+			<li>列表项目二</li>
+			<li>列表项目三</li>
+            </ul>				
+        </section>
+
+        <section id="top_three">
+        <h2>图片</h2>
+        <ul>
+        <li><p>好看的图片</p><img src="pic_task5/landscape.jpg" alt="风景图"></li>
+        <li><p>好看的图片</p><img src="pic_task5/landscape.jpg" alt="风景图"></li>
+        <li><p>好看的图片</p><img src="pic_task5/landscape.jpg" alt="风景图"></li>
+        <li><p>好看的图片</p><img src="pic_task5/landscape.jpg" alt="风景图"></li>
+        <li><p>好看的图片</p><img src="pic_task5/landscape.jpg" alt="风景图"></li>
+        <li><p>好看的图片</p><img src="pic_task5/landscape.jpg" alt="风景图"></li>
+        <li><p>好看的图片</p><img src="pic_task5/landscape.jpg" alt="风景图"></li>
+        <li><p>好看的图片</p><img src="pic_task5/landscape.jpg" alt="风景图"></li>
+        <li><p>好看的图片</p><img src="pic_task5/landscape.jpg" alt="风景图"></li>
+        <li><p>好看的图片</p><img src="pic_task5/landscape.jpg" alt="风景图"></li>
+        </ul>
+        </section>
+
+        <section id="top_four">
+
+			<h2>文章一级标题</h2>
+			<h3>文章二级标题</h3>
+			<span>文章作者</span>
+			<span>文章发表时间</span>
+			<ol>
+			<li>排名1</li>
+			<li>排名2</li>
+			<li>排名3</li>
+			</ol>
+
+			<p>这是一个表格</p>
+			<table>
+				<thead>
+					<th>表头</th>
+					<th>表头</th>
+					<th>表头</th>
+				</thead>
+				<tbody>
+					<tr>
+					<td>表内容单元格</td>
+					<td>表内容单元格</td>
+					<td><a href="#">操作</a></td>
+					</tr>
+					<tr>
+					<td>表内容单元格</td>
+					<td>表内容单元格</td>
+					<td><a href="#">操作</a></td>
+					</tr>
+					<tr>
+					<td>表内容单元格</td>
+					<td>表内容单元格</td>
+					<td><a href="#">操作</a></td>
+					</tr>
+					<tr>
+					<td>表内容单元格</td>
+					<td>表内容单元格</td>
+					<td><a href="#">操作</a></td>
+					</tr>
+					<tr >
+					<td class="total">总计</td>
+					<td class="total" colspan="2">1000</td>
+					</tr>
+				</tbody>
+
+			</table>
+        </section>
+
+		</main>
+
+        <aside id="right">
+        <h1>这里是一个侧栏，这是侧栏的标题</h1>
+        <form action="">
+        <div>
+        	<label for="email">请输入邮箱地址</label><input type="text" id="email" value="这是一个文本输入框">
+			<br/>
+        	<span>邮箱地址请按要求格式输入</span>
+        </div>
+        <div>
+        	<label for="">请输入密码</label><input type="password" >
+        </div>
+        <div>
+			<label for="">请重复输入密码</label><input type="password" name="password">
+			<br/>
+			<span>密码为6-16位英文数字</span>
+        </div>
+        <div>                            
+			<label>性别：</label>
+			<input type="radio" name="sex1">男</input>
+			<input type="radio" name="sex1">女</input>
+		</div>
+		<div>
+			<label>城市</label>
+			<select name="" id="">
+				<option value="1">北京</option>
+				<option value="2">上海</option>
+			</select>
+		</div>
+		<div>
+			<label>爱好</label>
+			<input type="checkbox" name="1" value="pao">跑步
+       	 	<input type="checkbox" name="1" value="yu">瑜伽
+        	<input type="checkbox" name="1" value="tiao">跳绳
+        </div>
+        <div>
+			<lable>个人描述</lable>
+			<textarea rows="3" cols="20">
+				这是一个自动换行的文本输入框
+			</textarea>
+		</div>
+		<div class="submit">
+			<input type="submit" value="确认提交">
+		</div>
+	
+        </form>
+
+        </aside>
+    </article>
+		
+		<footer>版权所有©</footer>
+
+</body>
+</html>

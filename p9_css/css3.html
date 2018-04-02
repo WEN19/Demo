@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>1223</title>
+	<style type="text/css">
+	table{
+	padding: 20px;
+	width: 300px;
+}
+
+th {
+    background-color: #000;
+    color: #fff;
+    text-align: left;
+}
+
+table tr:nth-child(-n+4) td{
+	color: red;
+}
+
+table tr:nth-child(odd) td{
+	background-color: #bbbbbb;
+}
+
+/* 输入框 */
+.text{
+	text-align: center;
+	width: 300px;
+}
+.text input{
+	width: 80px;
+	transition: all 0.3s ease-in;
+	-webkit-transition: all 0.3s ease-in;
+}
+
+.text input:focus{
+	width: 200px;
+}
+
+/* 轮播图 */
+.lunbo{
+	position: relative;
+	width: 300px;
+	height: 150px;
+	margin-top: 20px;
+	overflow: hidden;
+	background-color: #ffa500;
+	
+}
+
+.lunbo ul{
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+}
+
+.lunbo li{
+	position: absolute;
+	top: 0;
+	left: -100%;
+	width: 100%;
+	height: 100%;
+	animation: 0.5s slider-out linear;
+}
+
+.lunbo li:target{
+	left: 0%;
+	animation: 0.5s slider-in linear;
+	
+}
+
+@keyframes slider-out{
+	0%{
+		left: 0%;
+		
+	}
+	
+	100%{
+		left: -100%;
+	}
+}
+
+@keyframes slider-in{
+	0%{
+		left: 100%;
+	}
+	100%{
+		left: 0%;
+	}
+}
+
+.slide1{
+	background-color: #ffa500;
+}
+
+.slide2{
+	background-color: #FF0000;
+}
+
+.slide3{
+	background-color: #0000FF;
+}
+
+.num{
+  display: block;
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	text-align: center;
+  z-index: 100;
+}
+
+.num a{
+	display: block;
+	width: 30px;
+	height: 30px;
+	line-height: 30px;
+	margin-left: 10px;
+	
+	opacity: .7;
+	background-color: #B7B7B7;
+	color: #FFFFFF;
+	text-decoration: none;
+	float: left;
+}
+
+	</style>
+</head>
+<body>
+<table border="0" cellspacing="1" cellpadding="1">
+			<tr>
+				<th>排名</th>
+				<th>网站</th>
+				<th>热度</th>
+			</tr>
+			<tr>
+				<td>1.</td>
+				<td>百度前端技术学院</td>
+				<td>13000</td>
+			</tr>
+			<tr>
+				<td>2.</td>
+				<td>ife</td>
+				<td>12000</td>
+			</tr>
+			<tr>
+				<td>3.</td>
+				<td>ife</td>
+				<td>11000</td>
+			</tr>
+			<tr>
+				<td>4.</td>
+				<td>ife</td>
+				<td>10000</td>
+			</tr>
+			<tr>
+				<td>5.</td>
+				<td>ife</td>
+				<td>9000</td>
+			</tr>
+			<tr>
+				<td>6.</td>
+				<td>ife</td>
+				<td>8000</td>
+			</tr>
+			<tr>
+				<td>7.</td>
+				<td>ife</td>
+				<td>7000</td>
+			</tr>
+			<tr>
+				<td>8.</td>
+				<td>ife</td>
+				<td>6000</td>
+			</tr>
+			<tr>
+				<td>9.</td>
+				<td>ofe</td>
+				<td>5000</td>
+			</tr>
+			<tr>
+				<td>10.</td>
+				<td>ife</td>
+				<td>4000</td>
+			</tr>
+		</table>
+		<div class="text">
+			<input type="text" name="text" id="text"/>
+		</div>
+			
+		
+		<div class="lunbo">
+			<ul>
+				<li class="slide1" id="slide1"></li>
+				<li class="slide2" id="slide2"></li>
+				<li class="slide3" id="slide3"></li>
+			</ul>
+			<div class="num">
+				<a href="#slide1">1</a>
+				<a href="#slide2">2</a>
+				<a href="#slide3">3</a>
+			</div>
+		</div>
+		
+
+</body>
+</html>

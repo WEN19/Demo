@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>flex布局练习</title>
+	<style type="text/css">
+	*{
+		margin:0;
+	}
+	.wrapper div{
+		width:150px;
+		margin-top: 10px;
+		
+	}
+	.one{
+		height:120px;
+		border:1px solid #f00;
+	}
+	.two{
+		height:100px;
+		border:1px solid #f00;
+	}
+	.three{
+		height:40px;
+		border:1px solid #f00;
+	}
+	.four{
+		height:200px;
+		border:1px solid blue;
+	}
+	@media (min-width: 640px)
+	{
+		.wrapper{
+			padding:0 20px;
+			display:flex;
+			flex:1;
+			align-items: center;
+			justify-content: space-between;
+
+		}
+	}
+	@media (max-width:640px)
+	{
+		.wrapper{
+			padding:0 20px;
+			display: flex;
+			flex:1;
+            align-items: flex-start;
+            justify-content: space-between;
+            flex-wrap:wrap;
+
+		}
+		.four{
+			order:-1;
+		}
+	}
+
+     
+
+	</style>
+</head>
+<body>
+
+
+<div class="wrapper">
+
+<div class="one"></div>
+<div class="two"></div>
+<div class="three"></div>
+<div class="four"></div>
+
+
+</div>
+
+</body>
+</html>
