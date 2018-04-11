@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>可视化排序</title>
+	<style>
+		li{
+			display: inline-block;
+			background-color: #cd4a48;
+			color:#fff;
+			font-size: 20px;
+			text-align: center;
+			padding: 5px;
+			margin:5px;
+			width:20px;
+			cursor:pointer;
+		}
+
+	</style>
+</head>
+<body>
+	<input id="in" placeholder="请输入10~100之间的数字" type="text">
+	<button id="one">左侧入</button>
+	<button id="two">右侧入</button>
+	<button id="three">左侧出</button>
+	<button id="four">右侧出</button>
+	<button id="sortone">冒泡排序</button>
+	<button id="sorttwo">选择排序</button>
+	<button id="sortthree">插入排序</button>
+	<button id="sortfour">快速排序</button>
+	<button id="sortfive">归并排序</button>
+	<button id="sortsix">希尔排序</button>
+	<ul id="output"></ul>
+
+	<script>
+	var innum=document.getElementById("in");
+	var ulist=document.getElementById("output");
+	var delli=document.getElementsByTagName("li");
+	var one=document.getElementById("one");
+	var two=document.getElementById("two");
+	var three=document.getElementById("three");
+	var four=document.getElementById("four");
+	var bubble=document.getElementById("sortone");
+	var select=document.getElementById("sorttwo");
+	var insertsort=document.getElementById("sortthree");
+	var quick=document.getElementById("sortfour");
+	var mergebtn=document.getElementById("sortfive");
+	var shell=document.getElementById("sortsix");
+
+	var myarr=[];
+
+
+		function insert(direction){
+			if(innum.value==""){
+				alert("您还未输入内容");
+			}
+			else if(Number(innum.value)<10||Number(innum.value)>100){
+				alert("您输入的不是10~100之间的数字");
+			}
+			else if(direction=="right"){
+				//var lili=document.createElement("li");
+				lili=innum.value;
+				//ulist.appendChild(lili);
+				myarr.push(lili);
+				render(myarr);
+
+			}
+			else if(direction=="left"){
+				//var lili=document.createElement("li");
+				lili=innum.value;
+				//ulist.insertBefore(lili,ulist.firstChild);
+				myarr.unshift(lili);
+				render(myarr);
+			}
+
+		}
+
+		function del(node,direction){
+			if(delli.innerHTML==""){
+				alert("很抱歉没有内容可删除");
+			}
+			else if(direction=="left"){
+				alert("您要删除的是"+ulist.firstChild.innerHTML+"!");
+				ulist.removeChild(ulist.firstChild);
+			}
+			else if(direction=="right"){
+				alert("您要删除的是"+ulist.lastChild.innerHTML+"!");
+				ulist.removeChild(ulist.lastChild);
+			}
+			else {				
+				alert("您要删除的是"+ulist.removeChild(node).innerHTML+"!");
+
+			   }
+			}
+
+
+		// function swap(arr,index1,index2){
+		// 	var temp=arr[index1];
+		// 	arr[index1]=arr[index2];
+		// 	arr[index2]=temp;
+
+		//冒泡排序
+		var stateBubble=[];
+		function bubbleSort(arr){
+			for(var n=0;n<arr.length-1;n++){
+				for(var i=0;i<arr.length-1-n;i++){
+					if(arr[i+1]<arr[i]){
+						var temp=arr[i+1];
+						arr[i+1]=arr[i];
+						arr[i]=temp;
+					}
+					stateBubble.push(JSON.parse(JSON.stringify(arr)));
+				}
+				stateBubble.push(JSON.parse(JSON.stringify(arr)));
+			}
+			stateBubble.push(JSON.parse(JSON.stringify(arr)));
+
+		} 
+
+		//选择排序
+		var stateSelect=[];
+		function selectSort(arr){
+			for(i=0;i<arr.length-1;i++){
+				var minIndex=i;  //将i作为未排序数列中最小值的索引
+				for(var j=i+1;j<arr.length;j++){//寻找最小的数
+					if(arr[j]<arr[minIndex]){
+						minIndex=j;
+					}
+				}
+				var temp=arr[minIndex];
+				arr[minIndex]=arr[i];
+				arr[i]=temp;
+				stateSelect.push(JSON.parse(JSON.stringify(arr)));
+			}
+			stateSelect.push(JSON.parse(JSON.stringify(arr)));
+		}
+
+		//插入排序
+		var stateInsert=[];
+		function insertSort(arr){
+
+			//假设第0个元素是有序数列，第0个以后是无序数列
+			//所以从第一个元素开始将无序数列中的元素插入有序数列中
+			for(var i=1;i<arr.length;i++){
+				if(arr[i]<arr[i-1]){
+					var guard=arr[i];//取出第i个元素，作为被插入有序数列的元素
+					var j=i-1;//记住有序数列的最后一个位置
+					//比大小，找到被插入元素应该插入的位置：j+1
+					while(j>=0&&guard<arr[j]){
+						arr[j+1]=arr[j];
+						j--;
+					}
+					arr[j+1]=guard;
+				}
+				stateInsert.push(JSON.parse(JSON.stringify(arr)));
+
+			}
+			stateInsert.push(JSON.parse(JSON.stringify(arr)));
+		}
+
+		//快速排序
+		function quickSort(arr){
+			if(arr.length<=1){
+				return arr;
+			}
+			//选择基准，将其与原数组分离，再定义两个空数组，用来存放一左一右两个子集
+			var pivotIndex=Math.floor(arr.length/2);
+			var pivot=arr.splice(pivotIndex,1)[0];//取基准值
+			var left=[];
+			var right=[];
+			for(var i=0;i<arr.length;i++){
+				if(arr[i]<pivot){
+					left.push(arr[i]);
+				}else{
+					right.push(arr[i]);
+				}
+			}
+			//递归调用，直到所有的细分数组只有一个元素
+			return quickSort(left).concat([pivot],quickSort(right));
+		}
+
+		//归并排序
+		function mergeSort(arr){
+			var len=arr.length;
+			if(len<2){
+				return arr;
+			}
+			var middle=Math.floor(len/2),
+				left=arr.slice(0,middle),
+				right=arr.slice(middle);
+				return merge(mergeSort(left),mergeSort(right));
+		}
+		function merge(left,right){
+			var result=[];
+			while(left.length&&right.length){
+				if(left[0]<=right[0]){
+					result.push(left.shift());
+				}else{
+					result.push(right.shift());
+				}
+			}
+			while(left.length){
+				result.push(left.shift());
+			}
+			while(right.length){
+				result.push(right.shift());
+			}
+			return result;
+		}
+
+		//希尔排序
+		function shellSort(arr){
+		    var len = arr.length;
+		    gap = Math.floor(len/2);
+			while(gap!==0){
+		        for(var i = gap;i<len;i++){
+		            var temp = arr[i];
+		            var j;
+					for(j=i-gap;j>=0&&temp<arr[j];j-=gap){
+						arr[j+gap] = arr[j];
+					}
+					arr[j+gap] = temp;
+				}
+				gap=Math.floor(gap/2);
+			}
+			return arr;
+		}
+
+		//input初始化
+		function initInput(){
+		    innum.value="";
+		    innum.focus();
+		}
+
+		//数组可视化
+		function render(arr){
+			ulist.innerHTML="";  //需要把之前生成的li内容清空，不然会重复
+			for(i=0;i<arr.length;i++){
+				var li=document.createElement("li");
+				li.innerHTML=arr[i];
+				li.style.height=arr[i]*2+"px";
+				ulist.appendChild(li);
+			}
+		}
+
+		//排序过程可视化
+		function sortAnimation(sortAlgorithm,stateKind){
+			var resArr=myarr.slice();//复制出来数组且不影响原数组
+			sortAlgorithm(resArr);
+			var stateArr;  //用来存储每种状态的数组
+			var timer=setInterval(function(){
+				stateArr=stateKind.shift();//从状态数组集合中取出第一次交换后的数组的状态
+        		if(stateKind.length>0){
+            	render(stateArr);
+        		}else{
+            	clearInterval(timer);}
+			},100)
+		}
+		
+
+
+      one.onclick=function(){
+      	insert("left");
+      	initInput();
+      }
+      two.onclick=function(){
+      	insert("right");
+      	initInput();
+      }
+      three.onclick=function(){
+      	del(-1,"left");
+      	initInput();
+      }
+      four.onclick=function(){
+      	del(-1,"right");
+      	initInput();
+      }
+      ulist.onclick=function(){
+      	del(event.target);
+      	initInput();
+      }
+      bubble.onclick=function(){
+      	 //bubbleSort(myarr);
+      	//render(myarr);  不显示动态过程
+      	sortAnimation(bubbleSort,stateBubble);
+      	initInput();     	
+      }
+      select.onclick=function(){
+      	 //selectSort(myarr);
+      	//render(myarr);  不显示动态过程
+      	sortAnimation(selectSort,stateSelect);  
+      	initInput();   	
+      }
+      insertsort.onclick=function(){
+      	//insertSort(myarr);
+      	//render(myarr);
+      	sortAnimation(insertSort,stateInsert);
+      	initInput();
+      }
+      quick.onclick=function(){
+      	var copyArr=myarr.slice();
+      	var resultquick=quickSort(copyArr);
+      	render(resultquick);
+      	initInput();
+      
+      }
+      mergebtn.onclick=function(){
+      	var resultMerge=mergeSort(myarr);
+      	render(resultMerge);
+      	initInput();
+      }
+      shell.onclick=function(){
+      	var copyArr2=myarr.slice();
+      	var resultShell=shellSort(copyArr2);
+      	render(resultShell);
+      	initInput();
+      }
+ 
+
+      
+
+
+	</script>
+</body>
+</html>
