@@ -1,0 +1,333 @@
+<!-- <!DOCTYPE html>
+<html>
+<head>
+	<title>内容匹配</title>
+	<style>
+		.item{
+            display: inline-block;
+            padding: 10px;
+            margin: 5px;
+            font-size: 20px;
+            background-color: #fff;
+            color: #f00;
+            border: 1px solid #f00;
+            cursor: pointer;
+		}
+	</style>
+</head>
+<body>
+	<textarea id="in" rows="3" cols="20" ></textarea>
+	<button id="one">左侧入</button>
+	<button id="two">右侧入</button>
+	<button id="three">左侧出</button>
+	<button id="four">右侧出</button>
+	<div id="output"></div>
+    <input id="search" type="text"/>
+    <button id="find">查询</button>
+
+	<script type="text/javascript">
+	var innum = document.getElementById("in");
+	var one=document.getElementById("one");
+	var two=document.getElementById("two");
+	var three=document.getElementById("three");
+	var four=document.getElementById("four");
+	var output=document.getElementById("output");
+    var search=document.getElementById("search");
+    var find=document.getElementById("find");
+
+
+	function insert(direction){
+		if(innum.value==""){
+			alert("请输入需要插入的值");
+			innum.focus();}
+        else{
+			var li=document.createElement("span");
+            li.setAttribute("class","item");
+			li.innerHTML=innum.value;
+			if(direction==="left"){
+				output.insertBefore(li,output.firstChild);
+			}else if(direction==="right"){
+				output.appendChild(li);
+			}
+		}
+	}
+
+	function del(node,direction){
+		if(output.childNodes.length<=0){
+			alert("不存在元素可以删除");
+			return false;
+		}else{
+			if(direction==="left"){
+				alert("删除："+output.firstChild.innerText+"!");
+				output.removeChild(output.firstChild);
+			}else if(direction==="right"){
+				alert("删除："+output.lastChild.innerText+"!");
+				output.removeChild(output.lastChild);
+			}else{
+				alert("删除："+output.removeChild(node).innerText+"!");
+			}
+		}
+	}
+
+    function searchstr(){
+        var nodes=output.childNodes;
+        var len=nodes.length;
+        var txt=search.value;
+        if(txt==""){
+            alert("请输入要查询的字符");
+        }else{
+        for(i=0;i<len;i++){
+            var nd=nodes[i];
+            var str=nd.innerText;
+            if(str.indexOf(txt)>-1){
+                    nd.style.backgroundColor = "#f00";
+                    nd.style.color = "#fff";
+            }else{
+                    nd.style.backgroundColor = "#fff";
+                    nd.style.color = "#f00";
+            }
+        }
+      }
+    }
+
+	one.onclick=function(){insert("left");};
+	two.onclick=function(){insert("right");};
+	three.onclick=function(){del(-1,"left");};
+	four.onclick=function(){del(-1,"right");};
+	output.onclick=function(){del(event.target)};
+    find.onclick=function(){searchstr();}
+
+	</script>
+
+</body>
+</html> -->
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>JavaScript Task 04</title>
+    </head>
+    <style>
+        body{text-align: center;}
+        div{
+            display: inline-block;
+            height:300px;
+            width:300px;
+            margin-top:100px;
+        }
+        .liStyle{
+            list-style: none;
+            float:left;
+            width:30px;
+            height:30px;
+            font-size:15px;
+            color:#fff;
+            background-color:red;
+            text-align:center;
+            line-height:30px;
+            margin-right:5px;
+            margin-top:5px;
+        }
+        .cursor{
+            cursor:pointer;
+        }
+    </style>
+<body>
+    <div>
+        <form>
+            <label for="input">输入要插入的数字：<input id="input" type="text" placeholder="输入插入的值"></label><br/>
+            <button type="button" id="btn-left-in">左侧入</button>
+            <button type="button" id="btn-right-in">右侧入</button>
+            <button type="button" id="btn-left-out">左侧出</button>
+            <button type="button" id="btn-right-out">右侧出</button><br/>
+        </form>
+        <ul id="showArray"></ul>
+    </div>
+
+
+    <script>
+        var myArr=[];
+        var txt=document.getElementById("input");
+        //初始化
+        function initial(){
+            //获取元素节点
+            var btnLeftIn=document.getElementById("btn-left-in");
+            var btnRightIn=document.getElementById("btn-right-in");
+            var btnLeftOut=document.getElementById("btn-left-out");
+            var btnRightOut=document.getElementById("btn-right-out");
+            initInput();
+            //"左侧入"绑定单击事件
+            btnLeftIn.addEventListener("click",function(){
+                //左侧插入并显示
+                leftIn(txt.value);
+                render();
+                initInput();
+            },false);
+            //"右侧入"绑定单击事件
+            btnRightIn.addEventListener("click",function(){
+                rightIn(txt.value);
+                render();
+                initInput();
+            },false);
+            //"左侧出"绑定单击事件
+            btnLeftOut.addEventListener("click",function(){
+                myArr.shift();
+                render();
+                initInput();
+            },false);
+            //"右侧出"绑定单击事件
+            btnRightOut.addEventListener("click",function(){
+                myArr.pop();
+                render();
+                initInput();
+            },false);
+        }
+        function leftIn(num){
+            var flag=vertify(num);
+            if(flag==true){
+                myArr.unshift(num);
+            }
+        }
+        function rightIn(num){
+            var flag=vertify(num);
+            if(flag==true){
+                myArr.push(num);
+            }
+        }
+        //验证文本框中的值
+        function vertify(str){
+            if(str==""){
+                alert("请输入要插入的值");
+                return false;
+            }else if(isNaN(str)){
+                alert("请输入数字！");
+                return false;
+            }else if(Number(str)<0||Number(str)>99){
+                alert("请输入100以内的整数");
+                return false;
+            }else{
+                return true;
+            }
+        }
+        //input初始化
+        function initInput(){
+            txt.value="";
+            txt.focus();
+        }
+        //创建要显示的li列表,并追加到ul中
+        function render(){
+            ul=document.getElementById("showArray");
+            //应先将ul的innerHTML内容清除；
+            ul.innerHTML="";
+            for(var i=0;i<myArr.length;i++){
+                var li=document.createElement("li");
+                li.innerHTML = myArr[i];
+                li.id="item-"+i;//设置li的id值
+                li.setAttribute("class", "liStyle");
+                ul.appendChild(li);
+                li.onmouseover = function () {
+                   this.setAttribute("style", "cursor:pointer")
+                };
+                //执行li单击删除操作
+                deleteSelected(i);
+            }
+        }
+        //给每一个添加的li添加点击事件(点击即删除)
+        function deleteSelected(i){
+            var temp=document.getElementById("item-"+i);
+            temp.addEventListener("click",function(){
+                index=temp.id.substr(5);//获取删除元素的起始索引位置
+                myArr.splice(index,1);
+                render();
+                initInput();
+            },false);
+        }
+        window.addEventListener("load",initial,false);
+    </script>
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>任务六：基础JavaScript练习（三）</title>
+        <style type="text/css">
+            
+            .found{
+                background-color: #fff;
+                color:red;
+            }
+            textarea{
+                resize: none;
+            }
+            .container div{
+                display: inline-block;
+                float: left;
+                padding:0 10px;
+                margin: 5px 5px 0 0;
+                height:50px;
+                line-height:50px;
+                background-color: #FF0000;
+                color: #fff;
+                font-size: 30px;
+                font-weight: bold;
+            }
+            .container{
+                overflow: auto;
+            }
+        
+        </style>
+    </head>
+    <body>
+        <textarea placeholder="请输入字符并用不同符号分隔" rows="5" cols="20"></textarea>
+        <input type="button" value="插入" id="insert"/>
+        <input type="button" value="查询" id="search"/>
+        <input type="text" id="keyWord"/>
+        
+        <div id="container" class="container">
+            
+        </div>
+    <script type="text/javascript">
+        var text = document.getElementsByTagName('textarea');
+        var container = document.getElementById('container');
+
+        var data = [];
+
+        window.onload = function(){
+            
+            var insert = document.getElementById('insert');
+            var search = document.getElementById('search');
+            
+            insert.onclick = function(){
+                var words =text[0].value;
+                words = words.replace(/[^0-9a-zA-Z]/g, ' ');  //非数字字母的字符串用空格替代，比如汉字
+                var arr = words.split(' ');
+                for(var i = 0; i < arr.length; i++){
+                    var oDiv = document.createElement('div');
+                    oDiv.innerHTML = arr[i];
+                    container.appendChild(oDiv);
+                    data.push(arr[i]);
+                    
+                }
+                alert(data);
+            }
+            
+            search.onclick = function(){
+                var input = document.getElementById('keyWord').value;
+                container.innerHTML = data.map(function(d){
+                    if(input != null && input.length > 0){
+                        d = d.replace(new RegExp(input, 'g'), '<span class="found">' + input + '</span>');
+                    }
+                    return "<div>" + d + "</div>"
+                }).join('');  //如果不用join（‘’）将把data里的逗号分隔符全展示出来
+                
+            }
+            
+        }
+
+    </script>
+    </body>
+</html>
