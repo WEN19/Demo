@@ -1,0 +1,158 @@
+<!DOCTYPE>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>二叉树遍历</title>
+    <style type="text/css">
+         #wrapper {
+          display: flex;
+          flex-direction: row;
+          padding: 15px 10px;
+          margin: 5px;
+          border: 1px solid #000;
+          background-color: #fff;
+          width: 730px;
+          height: 240px; 
+        }
+
+        .layer_1 {
+          display: flex;
+          flex-direction: row;
+          padding: 15px 10px;
+          margin: 5px;
+          border: 1px solid #000;
+          background-color: #fff;
+          width: 340px;
+          height: 200px; 
+        }
+
+        .layer_2 {
+          display: flex;
+          flex-direction: row;
+          padding: 15px 10px;
+          margin: 5px;
+          border: 1px solid #000;
+          background-color: #fff;
+          width: 135px;
+          height: 160px; 
+        }
+
+        .layer_3 {
+          display: flex;
+          flex-direction: row;
+          padding: 15px 10px;
+          margin: 5px;
+          border: 1px solid #000;
+          background-color: #fff;
+          width: 52.5px;
+          height: 120px;
+        }
+    </style>
+   
+</head>
+
+<body>
+    <div id="wrapper">
+        <div class="layer_1">
+            <div class="layer_2">
+                <div class="layer_3"></div>
+                <div class="layer_3"></div>
+            </div>
+            <div class="layer_2">
+                <div class="layer_3"></div>
+                <div class="layer_3"></div>
+            </div>
+        </div>
+        <div class="layer_1">
+            <div class="layer_2">
+                <div class="layer_3"></div>
+                <div class="layer_3"></div>
+            </div>
+            <div class="layer_2">
+                <div class="layer_3"></div>
+                <div class="layer_3"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="control-box">
+        <input type="button" id="preorder" value="前序遍历">
+        <input type="button" id="inorder" value="中序遍历">
+        <input type="button" id="postorder" value="后序遍历">
+    </div>
+
+    <script type="text/javascript">
+    //存放遍历出来的DOM树节点
+    var orderQueue=[];
+     var timer = null;
+
+    //先序遍历 根左右
+    function preOrder(root){
+        orderQueue.push(root);
+        if(root.firstElementChild!=null)
+            preOrder(root.firstElementChild);
+        if(root.lastElementChild!=null)
+            preOrder(root.lastElementChild);
+    }
+
+    //中序遍历 左根右
+    function inOrder(root) {
+      if (root.firstElementChild != null)
+        inOrder(root.firstElementChild);
+      orderQueue.push(root);
+      if (root.lastElementChild != null)
+        inOrder(root.lastElementChild);
+    }
+
+    //后序遍历 左右根
+    function postOrder(root) {
+      if (root.firstElementChild != null)
+        postOrder(root.firstElementChild);
+      if (root.lastElementChild !== null)
+        postOrder(root.lastElementChild);
+      orderQueue.push(root);
+    }
+    
+    //颜色改变函数
+    function changeColor(){
+        var i = 0;
+        orderQueue[i].style.backgroundColor = "#f00";
+        timer = setInterval(function(){
+            i++;
+            if(i < orderQueue.length){
+                orderQueue[i-1].style.backgroundColor = "#fff";
+                orderQueue[i].style.backgroundColor = "#f00";
+            }else{
+                clearInterval(timer);
+               orderQueue[orderQueue.length-1].style.backgroundColor = "#fff";
+            }
+        },500);
+    }
+
+    var rootNode = document.getElementById('wrapper');
+    window.onload = function() {
+      //按钮绑定事件
+      document.getElementById('preorder').onclick = function() {
+        preOrder(rootNode);    
+        changeColor();
+      }
+
+      document.getElementById('inorder').onclick = function() {
+        inOrder(rootNode);     
+        changeColor();
+      }
+
+      document.getElementById('postorder').onclick = function() {
+        postOrder(rootNode);     
+        changeColor();
+
+      }
+    } 
+
+    </script>
+
+
+</body>
+
+</html>
