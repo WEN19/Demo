@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>表单校验二</title>
+	<style type="text/css">
+		form{
+		width:800px;
+        height:600px;
+        position:absolute;
+        top:50%;
+        margin-top:-300px;
+        left:50%;
+        margin-left:-400px;
+        text-align: center;
+		}
+		input{
+			width:580px;
+			height:40px;
+			border-radius: 8px;
+			margin-left: 10px;
+			border:2px solid #ddd;
+
+		}
+		.item{
+			margin-bottom:10px;
+		}
+		label{
+			display: inline-block;
+			width:80px;
+			height:40px;
+		}
+		.info{
+			color:#b6bec7;
+		}
+
+	</style>
+</head>
+<body>
+<form action="">
+	<div id="name" class="item"><label for="">名称</label><input type="text"/><div class="info"></div></div>
+	<div id="passport" class="item"><label for="">密码</label><input type="password"/><div class="info"></div></div>
+	<div id="repassport" class="item"><label for="">密码确认</label><input type="password"/><div class="info"></div></div>
+	<div id="email" class="item"><label for="">邮箱</label><input type="text"/><div class="info"></div></div>
+	<div id="phone" class="item"><label for="">手机</label><input type="text"/><div class="info"></div></div>
+</form>
+</body>
+
+<script type="text/javascript">
+window.onload=function(){
+ var inputs=document.getElementsByTagName("input");
+ var infos=document.getElementsByClassName("info");
+ var name=document.getElementById("name");
+ var passport=document.getElementById("passport");
+ var repassport=document.getElementById("repassport");
+ var email=document.getElementById("email");
+ var phone=document.getElementById("phone");
+ 	
+ var reg1=/[0-9a-z_A-Z_]{4,}/g,//英文名字
+	 reg2=/[\u4e00-\u9fa5]{2,}/g,//中文名字
+     reg3=/[\w]{8,16}/g,//密码、密码确认
+     reg4=/^(\w)+@(\w)+(\.\w+)$/g,//邮箱
+	 reg5=/^((\d){3})(\-)((\d){8})$/g;//手机号
+
+ 
+ 	inputs[0].onfocus=function(){		
+ 		infos[0].innerText="必填，长度为4-16个字符";
+
+ 	}
+ 	inputs[0].onblur=function(){
+ 		namevalidate();
+ 	}
+
+ 	inputs[1].onfocus=function(){		
+ 		infos[1].innerText="请输入8-16位密码";
+
+ 	}
+ 	inputs[1].onblur=function(){
+ 		passportvalidate();
+ 	}
+ 	inputs[2].onfocus=function(){		
+ 		infos[2].innerText="请重新确认密码";
+
+ 	}
+ 	inputs[2].onblur=function(){
+ 		repassportvalidate();
+ 	}
+ 	inputs[3].onfocus=function(){		
+ 	infos[3].innerText="请输入正确的邮箱地址";
+
+ 	}
+ 	inputs[3].onblur=function(){
+ 		emailvalidate();
+ 	}
+ 	inputs[4].onfocus=function(){		
+ 	infos[4].innerText="请输入手机号码";
+
+ 	}
+ 	inputs[4].onblur=function(){
+ 		phonevalidate();
+ 	}
+ 	//得到字符长度
+	function getLength(str){
+				var re = /[\u4E00-\u9FA5\uF900-\uFA2D]/;
+				var length = 0;
+				for (var i = 0; i < str.length; i++){
+					if (re.test(str[i])) {length += 2;}//汉字长度为2
+					else {length ++;}
+				}
+				return length;
+	}
+ 	function namevalidate(){
+ 		 if(getLength(inputs[0].value)>=4&&(getLength(inputs[0].value)<=16))
+ 		 {
+ 		infos[0].innerText="验证正确";
+ 		inputs[0].style.borderColor="green";
+ 		 }
+ 		 else{
+		infos[0].innerText="验证错误";
+ 		inputs[0].style.borderColor="red";
+
+ 		 }
+ 	}
+
+ 	function passportvalidate(){
+ 		if(inputs[1].value.match(reg3)) 
+ 		{
+ 		infos[1].innerText="密码格式正确";
+ 		inputs[1].style.borderColor="green";
+ 		}
+ 		 else{
+		infos[1].innerText="密码格式错误";
+ 		inputs[1].style.borderColor="red";
+ 		}
+ 	
+ 	}
+ 	function repassportvalidate(){
+ 		if(inputs[2].value===inputs[1].value)
+ 		{
+ 		infos[2].innerText="密码正确";
+ 		inputs[2].style.borderColor="green";
+ 		}
+ 		 else{
+		infos[2].innerText="密码确认错误";
+ 		inputs[2].style.borderColor="red";
+ 		}
+ 	}
+ 	function emailvalidate(){
+ 		if(inputs[3].value.match(reg4)) 
+ 		{
+ 		infos[3].innerText="邮箱格式正确";
+ 		inputs[3].style.borderColor="green";
+ 		}
+ 		 else{
+		infos[3].innerText="邮箱格式错误";
+ 		inputs[3].style.borderColor="red";
+ 		}
+ 	
+ 	}
+ 	function phonevalidate(){
+ 		if(inputs[4].value.match(reg5)) 
+ 		{
+ 		infos[4].innerText="手机格式正确";
+ 		inputs[4].style.borderColor="green";
+ 		}
+ 		 else{
+		infos[4].innerText="手机格式错误";
+ 		inputs[4].style.borderColor="red";
+ 		}
+ 	
+ 	}
+
+ 
+}
+</script>
+</html>
