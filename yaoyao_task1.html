@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>任务一：表单（一）单个表单项的检验</title>
+ 
+    <style type="text/css">
+    .container{
+        width:500px;
+        height:200px;
+        position:absolute;
+        top:50%;
+        margin-top:-100px;
+        left:50%;
+        margin-left:-250px;
+        text-align: center;
+    }
+    #prompt{
+        color:#c7ced5;
+    }
+    input{
+        width: 300px;
+        height:30px;
+        border-radius: 8px;
+    }
+
+     </style>
+
+    
+
+</head>
+<body>
+
+    <div class="container">
+        <form action="">
+            <div class="form">
+                <label for="inputname" class="label">名称</label>
+                <div >
+                    <input type="text"  id="inputname" placeholder="name">
+                    <p id="prompt">必填，长度为4~16个字符</p>
+                </div>
+                <div >
+                    <button type="button" id="button">验证</button>
+                </div>
+               
+            </div>
+        </form>
+    </div>
+</body>
+<script>
+    //获取的ID值
+    var input_name = document.getElementById("inputname");
+    var Btn = document.getElementById("button");
+    var promptLabel = document.getElementById("prompt");
+    //规则
+    var RegYchinese = /[\u4E00-\u9FA5]/g;//汉字
+    var regNchinese = /[^\u4E00-\u9FA5\uf900-\ufa2d]/g; //匹配非中文
+    var Regtrim = /^\s+|\s+$/g;  // 删除字符串两侧的空白字符,匹配空白开头或空白结尾
+    Btn.addEventListener("click",function(){
+            var input_value =  input_name.value;
+        //计算长度
+        var length = input_value.replace(Regtrim,'').replace(RegYchinese, '*').length+input_value.replace(Regtrim,'').replace(regNchinese,'').length;
+        //将所有中文及中文符号替换为英文符号，方便计算长度,先替换空格再替换中文
+        //  val = val.replace(/^\s+|\s$/g, "").replace(/[^x00-xff]/g,'AB'));
+
+        if(length==0){
+            input_name.style.border="1px solid red";
+            promptLabel.innerHTML= '名称不能为空';
+            promptLabel.style.color = "#DE0012";
+        }else if(length>=4&&length<=16){
+            input_name.style.border="1px solid green";
+            promptLabel.innerHTML= '名称格式正确';
+            promptLabel.style.color = "green";
+        }else{
+            input_name.style.border="1px solid red";
+            promptLabel.innerHTML= '必填，长度为4~16个字符';
+            promptLabel.style.color = "#DE0012";
+        }
+    })
+
+
+</script>
+</html>
