@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>表单联动</title>
+	<style type="text/css">
+	body{
+		height:100%;
+		width:100%;
+		position: absolute;
+		display: flex;
+	    align-items: center;
+	    justify-content: center;
+	}
+
+	.container{
+		width:650px;
+		height:120px;
+		border: 1px solid #ddd;
+		border-radius:10px;
+		text-align: center;
+		line-height:40px; 
+		
+	}
+	.hide{
+		display: none;
+	}
+
+	</style>
+</head>
+<body>
+<div class="container">
+<div class="cat">
+	<input type="radio" name="student" value="在校生" checked="">
+	<label for="">在校生</label>
+	<input type="radio" name="student" value="非在校生">
+	<label for="">非在校生</label>
+</div>
+
+<div class="stu">
+	<label for="">学校</label>
+	<select name="city" id="city">
+		<option value="0">长沙</option>
+		<option value="1">西安</option>
+	</select>
+	<select name="school" id="school">
+		<option value="湖南师范大学">湖南师范大学</option>
+		<option value="中南大学">中南大学</option>
+	</select>
+</div>
+
+<div class="work hide">
+	<label for="">就业单位</label>
+	<input type="text">
+</div>
+</div>
+</body>
+
+<script type="text/javascript">
+            const catal = document.querySelectorAll('.cat input');
+            const student = document.querySelector('.stu');
+            const work = document.querySelector('.work');
+            const city = document.querySelector('#city');
+            const school = document.querySelector('#school');     
+
+            const university=
+            [
+				["湖南师范大学","中南大学"],
+				["西安电子科技大学","西安交通大学"]
+			];
+
+            catal.forEach((input, index) => {
+                input.addEventListener('click', function() {
+                    if (index === 0) {
+                        student.classList.remove('hide');
+                        work.classList.add('hide');
+                    } else {
+                        work.classList.remove('hide');
+                        student.classList.add('hide');
+                    }
+                }, false);
+            });
+            city.addEventListener('change', function() {
+                school.innerHTML = '';
+                var html = '';
+                var index = parseInt(city.value);
+                for (let i = 0; i < university[index].length; i++) {
+                    html += '<option value="' + university[index][i] + '">' + university[index][i] + '</option>';
+                }
+                school.innerHTML = html;
+            }, false);
+</script>
+</html>
