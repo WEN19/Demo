@@ -1,0 +1,569 @@
+<!-- <!DOCTYPE html>
+<html>
+<head>
+	<title>指令方格</title>
+	<style type="text/css">
+		body{
+            text-align: center;
+            margin:0;
+        }
+		#tablehead{
+			margin:0 auto;
+			
+		}
+
+		table{
+			border-collapse: collapse;
+		}
+		td{
+			height:40px;
+			width:40px;
+			border:1px solid #ddd;
+			
+		}
+		#table{
+			border:3px solid #000;
+			margin:0 auto;
+		}
+		#tableleft{
+			border:none;
+			position: absolute;
+            margin-left: calc(50% - 267px);
+		}
+		#tableleft td,#tablehead td{
+			border:none;
+		}
+		/*小方块设计*/
+		.select{
+			background-color: #f00;
+		}
+		#selectblue{
+			background: blue;
+			width:40px;
+			height:10px;
+			margin-top: -20px;
+		}
+		
+	</style>
+</head>
+<body>
+<table id="tablehead">
+	<tr>
+		<td>1</td>
+		<td>2</td>
+		<td>3</td>
+		<td>4</td>
+		<td>5</td>
+		<td>6</td>
+		<td>7</td>
+		<td>8</td>
+		<td>9</td>
+		<td>10</td>
+	</tr>
+</table>
+
+<table id="tableleft">
+    <tr>
+        <td>1</td>
+    </tr>
+    <tr>
+        <td>2</td>
+    </tr>
+    <tr>
+        <td>3</td>
+    </tr>
+    <tr>
+        <td>4</td>
+    </tr>
+    <tr>
+        <td>5</td>
+    </tr>
+    <tr>
+        <td>6</td>
+    </tr>
+    <tr>
+        <td>7</td>
+    </tr>
+    <tr>
+        <td>8</td>
+    </tr>
+    <tr>
+        <td>9</td>
+    </tr>
+    <tr>
+        <td>10</td>
+    </tr>
+
+</table>
+<table id="table" >
+    <tbody id="tbody">
+    </tbody>
+</table>
+<div id="buttons">
+    <button id="start" >start</button>
+    <button id="go" >go</button>
+    <button id="left">left</button>
+    <button id="right">right</button>
+    <button id="back">back</button>
+</div>
+
+<script type="text/javascript">
+window.onload=function(){
+var table=document.getElementById("table"),
+	tbody=document.getElementById("tbody"),
+	point=document.getElementById("selectblue"),
+	parent=document.getElementById("point.parentNode.id");
+
+function init(){
+	to = "top";
+	tbody.innerHTML='';
+	for(i=0;i<10;i++){
+		var tr=document.createElement("tr");
+		for(j=0;j<10;j++){
+			var td=document.createElement("td");
+			td.setAttribute("id","item"+i+j);
+			tr.appendChild(td);
+		}
+		tbody.appendChild(tr);
+	}
+
+	//        第一个按钮start
+        var btnstart = document.getElementById("start");
+        btnstart.onclick = function () {
+            start();
+        };
+        //        第二个按钮go
+        var btngo = document.getElementById("go");
+        btngo.onclick = function () {
+            go();
+        };
+        // 第三个按钮turn right
+        var btnleft = document.getElementById("left");
+        btnleft.onclick = function () {
+            left();
+        };
+        // 第四个按钮turn right
+        var btnright = document.getElementById("right");
+        btnright.onclick = function () {
+          right();
+        };
+        // 第五个按钮turn back
+        var btnback = document.getElementById("back");
+        btnback.onclick = function () {
+            back();
+        }
+  }
+  init();
+
+ function start(){
+ 	init();
+ 	var item55=document.getElementById("item55");
+ 	item55.className="select";
+ 	str="<div id = 'selectblue'></div>"
+ 	item55.innerHTML=str;
+ }
+
+function go(){
+	var point=document.getElementById("selectblue");
+	var row=point.parentNode.id.substr(4,1);
+	var col=point.parentNode.id.substr(5,1);
+	    if (to == "top"){
+            row =row * 1;
+            row = row -1;
+            if(row<0){
+            	alert("出界");
+            	return;
+            }
+        }else if(to == "bottom"){
+            // 这是为了把row字符串当成数字，要不然4 +1 会被当成41的。
+            row =row * 1;
+            row = row + 1;
+              if(row>9){
+            	alert("出界");
+            	return;
+            }
+        }else if(to == "left"){
+            col = col *1;
+            col = col - 1;
+              if(col<0){
+            	alert("出界");
+            	return;
+            }
+        }else if (to == "right"){
+            // 有问题
+            col = col *1;
+            col = col + 1;
+              if(col>9){
+            	alert("出界");
+            	return;
+            }
+        }
+        
+		var parent=document.getElementById(point.parentNode.id);  //不用再加双引号了
+        parent.className="";  //去掉原来的红色背景      
+        var nextparent=document.getElementById("item"+row+col);
+        nextparent.innerHTML=parent.innerHTML;  
+        parent.innerHTML='';  //去掉原来的小蓝块     
+        nextparent.className="select";
+}
+
+function left() {
+        var point=document.getElementById("selectblue");
+        if (to == "top"){
+            point.style.height = "40px";
+            point.style.width = "10px";
+            point.style.marginTop="0px";
+            to = "left";
+        }else if(to == "bottom"){
+            point.style.height = "40px";
+            point.style.width = "10px";
+            point.style.marginTop="0px";
+            point.style.marginLeft="30px";
+            to = "right";
+        }else if(to == "left"){
+            point.style.height = "10px";
+            point.style.width = "40px";
+            point.style.marginTop="30px";
+            to = "bottom";
+        }else if (to == "right"){
+            point.style.height = "10px";
+            point.style.width = "40px";
+            point.style.marginTop="-20px";
+            point.style.marginLeft="0px";
+            to = "top";
+        }
+    }
+function right() {
+        var point=document.getElementById("selectblue");
+        if (to == "top"){
+            point.style.height = "40px";
+            point.style.width = "10px";
+            point.style.marginTop="0px";
+            point.style.marginLeft="30px";
+            to = "right";
+        }else if(to == "bottom"){
+       		point.style.height = "40px";
+            point.style.width = "10px";
+            point.style.marginTop="0px";
+            to = "left";
+        }else if(to == "left"){
+            point.style.height = "10px";
+            point.style.width = "40px";
+            point.style.marginTop="-20px";
+            point.style.marginLeft="0px";
+            to = "top";
+        }else if (to == "right"){
+            point.style.height = "10px";
+            point.style.width = "40px";
+            point.style.marginTop="30px";
+            point.style.marginLeft="0px";
+            to = "bottom";
+        }
+    }
+ function back() {
+        var point=document.getElementById("selectblue");
+        if (to == "top"){
+            point.style.marginTop = "30px";
+            to = "bottom";
+        }else if(to == "bottom"){
+            point.style.marginTop = "-20px";
+            to = "top";
+        }else if(to == "left"){
+            point.style.marginLeft = "30px";
+            to = "right";
+        }else if (to == "right"){
+            point.style.marginLeft = "0";
+            to = "left";
+        }
+    }
+}
+</script>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>指令方格</title>
+	<style>
+		#container {
+			position: relative;
+			width: 540px;
+			height: 540px;
+			margin: 40px auto;
+			border: 1px solid transparent;
+		}
+		#grids {
+			position: relative;
+			width: 500px;
+			height: 500px;
+			margin: 20px;
+			border: 2px solid black;
+		}
+		.grid {
+			float: left;
+			box-sizing: border-box;
+			width: 50px;
+			height: 50px;
+			border: 1px solid #ccc;
+			border-width: 0 1px 1px 0;
+		}
+		#count_col {
+			position: absolute;
+			left: 40px;
+		}
+		#count_col div {
+			float: left;
+			width: 50px;
+		}
+		#count_row {
+			position: absolute;
+			top: 40px;
+		}
+		#count_row div{
+			height: 50px;
+		}
+		#box_head {
+			background-color: #4655FC;
+			height: 15px;
+			width: 50px
+		}
+		#box_body {
+			background-color: #F66B6B;
+			height: 35px;
+			width: 50px;
+		}
+		#control {
+			width: 540px;
+			margin: 0 auto;
+		}
+		#qiuck_check,#control_panel {
+			float: left;
+		}
+		#qiuck_check {
+			position: relative;
+			width: 200px;
+			height: 200px;
+			margin-left: 40px;
+		}
+		#qiuck_check p {
+			position: absolute;
+			background-color: #959393;
+			border: 1px solid #959393;
+			border-radius: 5px;
+			text-align: center;
+			line-height: 35px;
+			cursor: pointer;
+		}
+		#toUp {
+			height: 40px;
+			width: 30px;
+			top: -20px;
+			left: 100px;
+		}
+		#toLeft {
+			height: 30px;
+			width: 40px;
+			top: 25px;
+			left: 55px;
+		}
+		#toGo {
+			width: 30px;
+			top: 25px;
+			left: 100px;
+		}
+		#toRight {
+			height: 30px;
+			width: 40px;
+			top: 25px;
+			left: 135px;
+		}
+		#toDown {
+			height: 40px;
+			width: 30px;
+			top: 65px;
+			left: 100px;
+		}
+
+	</style>
+</head>
+<body>
+<div id="container">
+		<div id="count_col">
+			<div>1</div>
+			<div>2</div>
+			<div>3</div>
+			<div>4</div>
+			<div>5</div>
+			<div>6</div>
+			<div>7</div>
+			<div>8</div>
+			<div>9</div>
+			<div>10</div>
+		</div>
+		<div id="grids">
+			<div id="box" style="position: absolute;top: 350px;left: 200px">
+				<div id="box_head"></div>
+				<div id="box_body"></div>
+			</div>
+		</div>
+		<div id="count_row">
+			<div>1</div>
+			<div>2</div>
+			<div>3</div>
+			<div>4</div>
+			<div>5</div>
+			<div>6</div>
+			<div>7</div>
+			<div>8</div>
+			<div>9</div>
+			<div>10</div>
+		</div>
+</div>
+
+<div id="control">
+		<div id="control_panel">
+			<input type="text" name="order" id="order">
+			<button id="doit">执行</button>
+			 <p>指令有：<br>
+			GO：向蓝色边所面向的方向前进一格<br>
+	        TUN LEF：向左转（逆时针旋转90度）<br>
+	        TUN RIG：向右转（顺时针旋转90度）<br>
+	        TUN BAC：向右转（旋转180度）</p>
+		</div>
+
+        <div id="qiuck_check">
+			<p id="toUp">↑</p>
+			<p id="toLeft">←</p>
+			<p id="toGo">GO</p>
+			<p id="toRight">→</p>
+			<p id="toDown">↓</p>
+		</div>
+</div>
+
+<script type="text/javascript">
+//生成网格
+		var grids=document.getElementById("grids");
+		var n=0;
+		while(n<100) {
+			var grid=document.createElement("div");
+			grid.className="grid";
+			grids.appendChild(grid);
+			n++;
+		}
+
+		
+		var box=document.getElementById("box");
+		var order=document.getElementById("order");
+		var doit=document.getElementById("doit");
+		var angle=0;//角度计数
+		var count=1;//计步
+		box.di=1;
+		init();
+		qiuckControl();
+		//规定方向 1：上， 2：右 ，3：下， 4：左。di属性储存方向值,方向控制go命令的走法
+		//旋转   注意累计角度值即可
+		function turnLeft() {
+			if (box.di==1) {
+				box.di=4;
+			}
+			else {
+				box.di=parseInt((box.di-1)%4);
+			}
+			box.style.transform="rotate("+(angle-90)+"deg)";
+			angle-=90;
+			//console.log("turnLeft:"+box.di);
+		}
+		function turnRight() {
+			if (box.di==3) {
+				box.di=4;
+			}
+			else {
+				box.di=parseInt((box.di+1)%4);
+			}
+			box.style.transform="rotate("+(angle+90)+"deg)";
+			angle+=90;
+			//console.log("turnRight:"+box.di);
+		}
+		function turnBack() {
+			if (box.di==2) {
+				box.di=4;
+			}
+			else {
+				box.di=parseInt((box.di+2)%4);
+			}
+			box.style.transform="rotate("+(angle+180)+"deg)";
+			angle+=180;
+			//console.log("turnBack:"+box.di);
+		}
+		function goAhead() {
+			var box_top=box.style.top;
+			var box_left=box.style.left;
+			console.log(box_top);
+			console.log(box_left);
+			//规定方向 1：上， 2：右 ，3：下， 4：左。di属性储存方向值,方向控制go命令的走法
+			switch(box.di) {
+				case 1:
+				box_top=="0px"?alert("出界"):box.style.top=(parseInt(box_top)-50)+"px";
+				break;
+				case 2:
+				box_left=="450px"?alert("出界"):box.style.left=(parseInt(box_left)+50)+"px";
+				break;
+				case 3:
+				box_top=="450px"?alert("出界"):box.style.top=(parseInt(box_top)+50)+"px";
+				break;
+				case 4:
+				box_left=="0px"?alert("出界"):box.style.left=(parseInt(box_left)-50)+"px";
+				break;
+			}
+			// console.log(box.di);
+		}
+		function judgeHow() {
+			var orderValue=order.value;
+			switch(orderValue) {
+				case "TUN LEF":turnLeft();
+				break;
+				case "TUN RIG":turnRight();
+				break;
+				case "TUN BAC":turnBack();
+				break;
+				case "GO":goAhead();
+				break;
+				default:alert("指令错误！");
+			}
+		}
+		function init() {
+			doit.onclick=judgeHow;
+		}
+
+		// 快捷面板
+		function qiuckControl() {
+			var toUp=document.getElementById("toUp");
+			var toDown=document.getElementById("toDown");
+			var toGo=document.getElementById("toGo");
+			var toLeft=document.getElementById("toLeft");
+			var toRight=document.getElementById("toRight");
+			toUp.onclick=function() {
+				turnBack();
+				order.value="TUN BAC";
+			}
+			toDown.onclick=function() {
+				turnBack();
+				order.value="TUN BAC";
+			}
+			toGo.onclick=function() {
+				goAhead();
+				order.value="GO";
+			}
+			toLeft.onclick=function() {
+				turnLeft();
+				order.value="TUN LEF";
+			}
+			toRight.onclick=function() {
+				turnRight();
+				order.value="TUN RIG";
+			}
+		}
+</script>
+</body>
+</html>
