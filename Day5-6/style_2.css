@@ -1,0 +1,38 @@
+html, body { 
+	
+	margin: 0; 
+	padding: 0; 
+}
+#wrapper{
+	overflow: hidden;
+}
+h1{
+	float:left;
+
+	height:100%;
+	padding-bottom:9999px; 
+	margin-bottom:-9999px; /*实现元素填满整个父元素*/
+	
+	width:300px;
+	color:#fff;
+	font-size: 40px;
+	text-align: center;
+	padding-top:30px;
+	background-color: #65a5fa;
+}
+#right{
+	margin-left:320px;
+	padding-top:20px;
+}
+.title{
+	font-size: 20px;
+	font-weight: bold;
+	margin: 20px 0;
+}
+.part div{
+	float:left;
+	margin-right: 10px;
+} 
+h3{
+	font-size:15px;
+}
