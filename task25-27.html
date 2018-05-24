@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>百度前端25-27天任务</title>
+</head>
+<body>
+<!-- 任务二-->
+<div id="time1"></div>
+<div id="time2"></div>
+
+<!-- 任务三 -->
+<select id="year-select">
+    <!-- <option value="2000">2000</option> -->
+
+</select>
+
+<select id="month-select">
+    <!-- <option value="1">1</option> -->
+
+</select>
+
+<select id="day-select">
+    <!-- <option value="1">1</option> -->
+
+</select>
+
+<select id="hour-select">
+    <!-- <option value="0">00</option> -->
+
+</select>
+
+<select id="minite-select">
+    <!-- <option value="0">0</option> -->
+
+</select>
+
+<select id="second-select">
+    <!-- <option value="0">0</option> -->
+
+</select>
+
+<p id="result-wrapper">现在距离 2001年1月1日星期X HH:MM:SS 还有 X 天 X 小时 X 分 X 秒</p>
+
+<script type="text/javascript">
+//任务一
+function Go() {
+    console.log("Go");
+}
+function GoSteps(n) {
+	if(arguments.length==0){
+		n=1;
+	}
+	if(n<0){
+		n=0;
+
+	}
+	if(Math.floor(n)!=n){
+		n=Math.floor(n);
+	}
+	if(typeof(n)=="boolean"){
+		var n= (n==true)?1:0;
+		console.log(n);
+	}
+	if(!n||n!=n||typeof(n)=="string"){
+		n=0;
+		console.log(n);
+	}
+    while (n--) {
+        Go();
+    }
+}
+GoSteps(10); // Go 10次
+GoSteps(1); // Go 1次
+GoSteps(); // Go 1次，认为缺少参数时，默认参数为1
+GoSteps(0);  // 0次
+GoSteps(-1);  // 0次
+GoSteps(1.4);  // Go 1次
+GoSteps(1.6);  // Go 1次
+GoSteps(true);  // Go 1次
+GoSteps(false);  // 0次
+GoSteps("Test");  // 0次  
+GoSteps(NaN);  // 0次  NaN!=NaN
+GoSteps(null);  // 0次   !n
+
+//任务二
+var time1=document.getElementById("time1");
+var time2=document.getElementById("time2");
+
+setInterval(normal,1000);
+
+
+function twoBit(num){
+  if(num.toString().length==1){
+  	num='0'+num;
+  }
+  return num;
+}
+
+function getDay1(){
+	var date=new Date();
+	var day=date.getDay();
+	switch(day){
+		case 0: day="日";break;
+		case 1: day="一";break;
+		case 2: day="二";break;
+		case 3: day="三";break;
+		case 4: day="四";break;
+		case 5: day="五";break;
+		case 6: day="六";break;
+	 }
+	 return day;
+}
+function getDay2(){
+	var date=new Date();
+	var day=date.getDay();
+	switch(day){
+		case 0: day="Sunday";break;
+		case 1: day="Monday";break;
+		case 2: day="Tuesday";break;
+		case 3: day="Wednesday";break;
+		case 4: day="Thurday";break;
+		case 5: day="Friday";break;
+		case 6: day="Saturday";break;
+	 }
+	 return day;
+}
+function normal(){
+	var date=new Date();
+	var year=date.getFullYear();
+	var month=date.getMonth();
+	var days=date.getDate();
+	var hour=date.getHours();
+	var minites=date.getMinutes();
+	var seconds=date.getSeconds();
+    var ampm = hour >= 12 ? 'pm' : 'am';
+    var hours = hour % 12;
+        hours = hours ? hours : 12; // the hour '0' should be '12'
+    
+	time1.innerHTML="格式一："+year+"年"+twoBit(month+1)+"月"+twoBit(days)+"日"+"星期"+getDay1()+"&nbsp;&nbsp;"+twoBit(hour)+":"+twoBit(minites)+":"+twoBit(seconds);
+	time2.innerHTML="格式二："+year+"-"+twoBit(month+1)+"-"+twoBit(days)+"&nbsp;&nbsp;"+getDay2()+"&nbsp;&nbsp;"+twoBit(hours)+":"+twoBit(minites)+":"+twoBit(seconds)+ampm;
+}
+
+//任务三
+var yearSelect=document.getElementById("year-select");
+var monthSelect=document.getElementById("month-select");
+var daySelect=document.getElementById("day-select");
+var hourSelect=document.getElementById("hour-select");
+var miniteSelect=document.getElementById("minite-select");
+var secondSelect=document.getElementById("second-select");
+var resultWrapper=document.getElementById("result-wrapper");
+
+function append(id,start,num){
+	for(i=0;i<num;i++){
+	var option=document.createElement("option");
+	option.setAttribute("value",i+1);
+	var text=document.createTextNode(start+i);
+	option.appendChild(text);
+	id.appendChild(option);
+	}
+}
+
+append(yearSelect,2010,12);
+append(monthSelect,1,12);
+append(daySelect,1,31);
+append(hourSelect,0,24);
+append(miniteSelect,0,60);
+append(secondSelect,0,60);
+
+
+
+
+	monthSelect.onchange=function(){
+		var options=daySelect.getElementsByTagName('option');
+		if(this.value==4||this.value==6||this.value==9||this.value==11){	
+			daySelect.innerHTML='';
+			append(daySelect,1,30);
+			
+
+		}else if(this.value==1||this.value==3||this.value==5||this.value==7||this.value==8||this.value==10||this.value==12){
+		    daySelect.innerHTML='';
+			append(daySelect,1,31);
+			
+		}else {
+		   daySelect.innerHTML='';
+			append(daySelect,1,28);			
+		 }
+	}
+	
+	yearSelect.onchange=function(){
+		if((yearSelect.value%4==0&&yearSelect.value%100!=0)||(yearSelect.value%400==0&&yearSelect.value%100==0)){
+			daySelect.innerHTML='';
+			append(daySelect,1,29);
+		}else{
+			daySelect.innerHTML='';
+			append(daySelect,1,28);
+		}	
+	}
+window.onchange=function(){	
+	function timeDif(){
+		var dates=Date.now();
+		var selectTime=Date.UTC(Number(yearSelect.value)+2009,Number(monthSelect.value)-1,Number(daySelect.value),Number(hourSelect.value)-9,Number(miniteSelect.value)-1,Number(secondSelect.value)-1);
+		console.log(new Date(selectTime));
+		console.log(new Date(dates));
+		var dif=dates-selectTime;
+		if(dif>0){
+			var dayss=Math.ceil(dif/86400000);
+			var hourss=Math.ceil((dif-dayss*86400000)/3600000);
+			var minitess=Math.ceil((dif-dayss*86400000-hourss*3600000)/60000);
+			var secondss=Math.ceil((dif-dayss*86400000-hourss*3600000-minitess*60000)/1000);
+
+            resultWrapper.innerHTML="距离所选日期已经过去了："+dayss+"日"+hourss+"时"+minitess+"分"+secondss+"秒";
+		}else{
+			dif=-dif;
+			var dayss=Math.ceil(dif/86400000);
+			var hourss=Math.ceil((dif-dayss*86400000)/3600000);
+			var minitess=Math.ceil((dif-dayss*86400000-hourss*3600000)/60000);
+			var secondss=Math.ceil((dif-dayss*86400000-hourss*3600000-minitess*60000)/1000);
+
+            resultWrapper.innerHTML="距离所选日期还有："+dayss+"日"+hourss+"时"+minitess+"分"+secondss+"秒";
+		}
+	}
+	timeDif();
+}
+
+
+</script>
+</body>
+</html>
