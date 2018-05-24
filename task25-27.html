@@ -203,18 +203,19 @@ window.onchange=function(){
 		console.log(new Date(dates));
 		var dif=dates-selectTime;
 		if(dif>0){
-			var dayss=Math.ceil(dif/86400000);
-			var hourss=Math.ceil((dif-dayss*86400000)/3600000);
-			var minitess=Math.ceil((dif-dayss*86400000-hourss*3600000)/60000);
-			var secondss=Math.ceil((dif-dayss*86400000-hourss*3600000-minitess*60000)/1000);
+			dif=dif/1000;
+			var dayss=Math.floor(Math.abs(dif/86400));
+			var hourss=Math.floor(Math.abs(dif % 86400 / 3600));
+			var minitess=Math.floor(Math.abs(dif % 3600 / 60));
+			var secondss= Math.floor(Math.abs(dif % 60));
 
             resultWrapper.innerHTML="距离所选日期已经过去了："+dayss+"日"+hourss+"时"+minitess+"分"+secondss+"秒";
 		}else{
-			dif=-dif;
-			var dayss=Math.ceil(dif/86400000);
-			var hourss=Math.ceil((dif-dayss*86400000)/3600000);
-			var minitess=Math.ceil((dif-dayss*86400000-hourss*3600000)/60000);
-			var secondss=Math.ceil((dif-dayss*86400000-hourss*3600000-minitess*60000)/1000);
+		    dif=-dif/1000;
+			var dayss=Math.floor(Math.abs(dif/86400));
+			var hourss=Math.floor(Math.abs(dif % 86400 / 3600));
+			var minitess=Math.floor(Math.abs(dif % 3600 / 60));
+			var secondss= Math.floor(Math.abs(dif % 60));
 
             resultWrapper.innerHTML="距离所选日期还有："+dayss+"日"+hourss+"时"+minitess+"分"+secondss+"秒";
 		}
