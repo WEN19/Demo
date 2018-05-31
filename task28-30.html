@@ -84,18 +84,12 @@ function showUp(){
 
 		       if (lii[i].className=="selected_two") {
 
-		         var liContent=lii[i].innerText;
+		         var liContent=htmlEncode(lii[i].innerText);
 		         emailInput.value=liContent;
 		         emailSugWrapper.style.display="none";
 		         }
 		     }
 }
-	
-// emailInput.onkeyup=function(){
-// 	if(event.keyCode==27)
-// 	{this.select();}
-// }
-
 function getInput() {
     var content=emailInput.value.trim();
     return content;
@@ -166,7 +160,7 @@ emailSugWrapper.onclick = function (event) {
     if (event.target==lii[i]) {
 
         var liContent=lii[i].innerText;
-        emailInput.value=liContent;
+        emailInput.value=htmlDecode(liContent);
         emailSugWrapper.style.display="none";
     }
 }
