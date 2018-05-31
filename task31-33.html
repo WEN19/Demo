@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>我是精明的小卖家（一)</title>
+	<style>
+		.box{
+			width: 800px;
+			margin: 0 auto;
+			padding: 10px;
+			border: 1px solid seagreen;
+		}
+		table.dataintable {
+			margin-top:15px;
+			border-collapse:collapse;
+			border:1px solid #aaa;
+			width:100%;
+		}
+		table.dataintable th {
+			vertical-align:baseline;
+			padding:5px 15px 5px 6px;
+			background-color:#3F3F3F;
+			border:1px solid #3F3F3F;
+			text-align:left;
+			color:#fff;
+		}
+		table.dataintable td {
+			vertical-align:text-top;
+			padding:6px 15px 6px 6px;
+			border:1px solid #aaa;
+		}
+		table.dataintable tr:nth-child(odd) {
+			background-color:#F5F5F5;
+		}
+		table.dataintable tr:nth-child(even) {
+			background-color:#fff;
+		}
+	</style>
+</head>
+<body>
+	<div class="box">
+		<h3>地区</h3>
+		<div id="area"></div>
+
+		<h3>产品</h3>
+		<div id="product"></div>
+
+		<div id="table-wrapper"></div>
+	</div>
+	<script type="text/javascript">
+	let sourceData = [{
+		    product: "手机",
+		    region: "华东",
+		    sale: [120, 100, 140, 160, 180, 185, 190, 210, 230, 245, 255, 270]
+		}, {
+		    product: "手机",
+		    region: "华北",
+		    sale: [80, 70, 90, 110, 130, 145, 150, 160, 170, 185, 190, 200]
+		}, {
+		    product: "手机",
+		    region: "华南",
+		    sale: [220, 200, 240, 250, 260, 270, 280, 295, 310, 335, 355, 380]
+		}, {
+		    product: "笔记本",
+		    region: "华东",
+		    sale: [50, 60, 80, 110, 30, 20, 70, 30, 420, 30, 20, 20]
+		}, {
+		    product: "笔记本",
+		    region: "华北",
+		    sale: [30, 35, 50, 70, 20, 15, 30, 50, 710, 130, 20, 20]
+		}, {
+		    product: "笔记本",
+		    region: "华南",
+		    sale: [80, 120, 130, 140, 70, 75, 120, 90, 550, 120, 110, 100]
+		}, {
+		    product: "智能音箱",
+		    region: "华东",
+		    sale: [10, 30, 4, 5, 6, 5, 4, 5, 6, 5, 5, 25]
+		}, {
+		    product: "智能音箱",
+		    region: "华北",
+		    sale: [15, 50, 15, 15, 12, 11, 11, 12, 12, 14, 12, 40]
+		}, {
+		    product: "智能音箱",
+		    region: "华南",
+		    sale: [10, 40, 10, 6, 5, 6, 8, 6, 6, 6, 7, 26]
+		}]
+		var tableWrapper = document.querySelector('#table-wrapper');
+		var area = document.querySelector('#area');
+		var areaBtn = area.getElementsByTagName('input');
+		var product = document.querySelector('#product');
+		var productBtn = product.getElementsByTagName('input');
+		var selectedProduct = [];
+		var selectedArea = [];
+		var clickedBtns = {
+			area: {
+				'华北': true,
+				'华南': false,
+				'华东': false
+			},
+			product: {
+				'手机': true,
+				'笔记本': false,
+				'智能音箱': false
+			}
+		};
+		var areaArr = [{name:'area', value:'huabei', text:'华北'},
+			{name:'area', value:'huanan', text:'华南'},
+			{name:'area', value:'huadong', text:'华东'},
+			{name:'area', value:'all', text:'全选'}];
+
+		var productArr = [{name:'prodcut', value:'mobile', text:'手机'},
+			{name:'product', value:'laptop', text:'笔记本'},
+			{name:'product', value:'speaker', text:'智能音箱'},
+			{name:'product', value:'all', text:'全选'}];
+		var selectionNumber = 0;
+
+// 获取选中的checkbox
+function getSelectedBtns() {
+	// 获取area中选中的选项
+	for (var i in clickedBtns.area) {
+		if (clickedBtns.area[i]) {
+			// 如果selectedArea中没有该元素 则将其加入arr
+			if (selectedArea.indexOf(i) < 0){
+				selectedArea.push(i);
+			}
+
+		}else{
+			// 如果selectedArea中存在该元素 则将其移除arr
+			if (selectedArea.indexOf(i) >= 0){
+				selectedArea.splice(selectedArea.indexOf(i), 1);
+			}
+		}
+	}
+	// 获取product中选中的选项
+	for (var i in clickedBtns.product){
+		if (clickedBtns.product[i]) {
+			// 如果selectedArea中没有该元素 则将其加入arr
+			if (selectedProduct.indexOf(i) < 0){
+				selectedProduct.push(i);
+			}
+		}else{
+			// 如果selectedArea中存在该元素 则将其移除arr
+			if (selectedProduct.indexOf(i) >= 0){
+				selectedProduct.splice(selectedProduct.indexOf(i), 1);
+			}
+		}
+	}
+}
+// 获得表格语句
+function tableStr(order, obj) {
+	var str = '',
+		product = obj.product,
+		sale = obj.sale,
+		region = obj.region;
+	// 判断地区和商品是否存在于selectedArea和selectedProduct中
+	if (selectedArea.indexOf(region) >= 0 && selectedProduct.indexOf(product) >= 0) {
+		switch (order) {
+			// 生成商品在前, 地区在后的数据行
+			case 'productArea':
+				str += '<tr><td class="header">' + product + '</td><td>' + region + '</td><td>' + sale[0] + '</td><td>' + sale[1] + '</td><td>' + sale[2] + '</td><td>' + sale[3] + '</td><td>' + sale[4] + '</td><td>' + sale[5] + '</td><td>' + sale[6] + '</td><td>' + sale[7] + '</td><td>' + sale[8] + '</td><td>' + sale[9] + '</td><td>' + sale[10] + '</td><td>' + sale[11] + '</td></tr>';
+				break;
+			// 生成地区在前, 商品在后的数据行
+			case'areaProduct':
+				str += '<tr><td class="header">' + region + '</td><td>' + product + '</td><td>' + sale[0] + '</td><td>' + sale[1] + '</td><td>' + sale[2] + '</td><td>' + sale[3] + '</td><td>' + sale[4] + '</td><td>' + sale[5] + '</td><td>' + sale[6] + '</td><td>' + sale[7] + '</td><td>' + sale[8] + '</td><td>' + sale[9] + '</td><td>' + sale[10] + '</td><td>' + sale[11] + '</td></tr>';
+				break;
+			default:
+				break;
+		}
+	}
+	// 返回表格语句
+	return str;
+}
+
+// 融合表格函数
+function combineTable(combineFactor) {
+	//获取所有class名为header的项
+	var head = document.querySelectorAll('.header');
+	var productL = selectedProduct.length;
+	var areaL = selectedArea.length;
+	// 相应数据的行数
+	var totalRows = productL * areaL;
+	var element = combineFactor === 'productArea' ? areaL : productL;
+	var length = combineFactor === 'productArea' ? productL : areaL;
+	var arr = [];
+	// 根据选项获得需要设置row span的index项
+	for (var i = 0; i < length; i++) {
+		arr.push(element * i);
+	}
+
+	for (var i = 0; i < totalRows; i++) {
+		// 遍历所有的行, 如果行数存在arr中则为其添加rowspan属性
+		if (arr.indexOf(i) >= 0) {
+			head[i].setAttribute('rowspan', element.toString());
+		} else {
+			head[i].style.display = 'none';// 如果不存在则隐藏class为header的th
+		}
+	}
+}
+
+// 渲染表格
+function addToTable() {
+	//调用函数获得选中的checkbox的集合
+	getSelectedBtns();
+	var str = '';
+	//设置表头
+	var table = '<table class="dataintable"><tr><th>商品</th><th>地区</th><th>1月</th><th>2月</th><th>3月</th><th>4月</th><th>5月</th><th>6月</th><th>7月</th><th>8月</th><th>9月</th><th>10月</th><th>11月</th><th>12月</th></tr>';
+	// 初始化融合表格参数为商品列在前, 地区列在后
+	var combineFactor = 'productArea';
+	var arrL = [selectedArea.length, selectedProduct.length];
+	// 遍历数据
+	for (var i in sourceData) {
+		// 转换arr为string, 并把选中项大于2的长度替换为m
+		switch (arrL.join('').replace(/[2-999]/g, 'm')) {
+			// 选中商品和地区数为 1
+			case '11':
+				str += tableStr('productArea', sourceData[i]);
+				break;
+			// 选中地区数为1 , 商品数大于2
+			case '1m':
+				// 更改表头为地区前, 商品后
+				table = '<table class="dataintable"><tr><th>地区</th><th>商品</th><th>1月</th><th>2月</th><th>3月</th><th>4月</th><th>5月</th><th>6月</th><th>7月</th><th>8月</th><th>9月</th><th>10月</th><th>11月</th><th>12月</th></tr>';
+				str += tableStr('areaProduct', sourceData[i]);
+				// 设置融合表格参数为地区在前, 商品在后
+				combineFactor = 'areaProduct';
+				break;
+			// 选中地区数大于2, 商品数为1
+			case 'm1':
+				str += tableStr('productArea', sourceData[i]);
+				break;
+			// 选中地区和商品数都大于2
+			case 'mm':
+				str += tableStr('productArea', sourceData[i]);
+				break;
+			default:
+				break;
+		}
+	}
+	table += str;
+	//根据表格语句生成表格
+	tableWrapper.innerHTML = table + '</table>';
+	// 调用融合表格函数
+	return combineTable(combineFactor);
+}
+
+// 检查最后选项函数
+function checkLastSelection(type) {
+	// 初始选中number为0
+	selectionNumber = 0;
+	for (var i = 0 ; i < type.length; i++){
+		// 如果选中项的value不为all且选项选中的话, number加一
+		if (type[i].value !== 'all'){
+			if (type[i].checked) selectionNumber += 1;
+		}
+	}
+	// 返回number是否小于1
+	return selectionNumber < 1;
+}
+
+// 点击事件
+function clickedItems(type, targetValue, target) {
+	if (type === 'area'){
+		// 如果点击的checkbox是最后一个勾选则设置为不可勾选
+		if (checkLastSelection(areaBtn))  target.checked = true;
+		if (target.checked){
+			//如果是勾选 设置clickedBtn中的对应选项为true
+			clickedBtns.area[targetValue] = true;
+		}else {
+			//如果是取消勾选 设置clickedBtn中的对应选项为false
+			clickedBtns.area[targetValue] = false;
+		}
+	}else {
+		// 如果点击的checkbox是最后一个勾选则设置为不可勾选
+		if (checkLastSelection(productBtn)) target.checked = true;
+		if (target.checked) {
+			//如果是勾选 设置clickedBtn中的对应选项为true
+			clickedBtns.product[targetValue] = true;
+		} else{
+			//如果是取消勾选 设置clickedBtn中的对应选项为false
+			clickedBtns.product[targetValue] = false;
+		}
+	}
+}
+// 添加地区checkbox监听事件
+area.addEventListener('click',function () {
+	var ev = ev || window.event;
+	var target = ev.target || ev.srcElement;
+	if (target.nodeName.toLowerCase() === 'input') {
+		switch (target.value) {
+			case 'huabei':
+				clickedItems('area','华北',target);
+				break;
+			case 'huanan':
+				clickedItems('area','华南',target);
+				break;
+			case 'huadong':
+				clickedItems('area','华东',target);
+				break;
+			case 'all':
+				if (target.checked){
+					// 勾选所有地图checkbox的选项
+					checkAll(areaBtn);
+				} else{
+					// 取消勾选所有checkbox的选项
+					uncheckAll(areaBtn);
+				}
+				break;
+			default:
+				break;
+		}
+		// 在地区checkbox点击地事件之后检查是否所有checkbox选中
+		if (checkSelectedAll(areaBtn)) checkAll(areaBtn);// 勾选所有地图checkbox的选项
+		// 渲染新的表格
+		addToTable();
+	}
+});
+// 检查checkbox是否全部选中
+function checkSelectedAll(obj){
+	for (var i = 0; i < obj.length; i++){
+		// 把全选选项排除检查
+		if (i === 3){
+			break;
+		}
+		// 如果检查到有选项没有选中 返回false
+		if (!obj[i].checked){
+			// 取消勾选全选选项
+			obj[3].checked = false;
+			return false;
+		}
+	}
+	return true;//如果全部选中返回true
+}
+
+// 根据是否勾选设置clickedBtn中对应选项为true
+function checkAllItems(obj) {
+	if (obj === areaBtn){
+		// 把如果传入参数为areaBtn clickedBtn中所有设置为true
+		for (var i in clickedBtns.area){
+			clickedBtns.area[i] = true;
+		}
+	} else{
+		// 把如果传入参数为productBtn clickedBtn中所有设置为true
+		for (var i in clickedBtns.product){
+			clickedBtns.product[i] = true;
+		}
+	}
+}
+// 根据是否勾选设置clickedBtn中对应选项为false
+function uncheckAllItems(obj) {
+	if (obj === areaBtn){
+		// 把如果传入参数为areaBtn clickedBtn中所有设置为false (第一个华北选项除外)
+		for (var i in clickedBtns.area){
+			clickedBtns.area[i] = i === '华北';
+		}
+	} else{
+		// 把如果传入参数为productBtn clickedBtn中所有设置为false (第一个手机选项除外)
+		for (var i  in clickedBtns.product){
+			clickedBtns.product[i] = i === '手机';
+		}
+	}
+}
+// 当勾选全选时调用的函数
+function checkAll(obj) {
+	for (var i = 0; i < obj.length; i++){
+		// 勾选area中的checkbox
+		obj[i].checked = true;
+	}
+	//调用checkAllItems函数
+	checkAllItems(obj);
+}
+// 当取消勾选全选时调用函数
+function uncheckAll(obj) {
+	selectionNumber = 0;
+	for (var i = 1; i < obj.length; i++){
+		// 取消勾选除了第一个之外的所有选项
+		obj[i].checked = false;
+	}
+	//调用uncheckAllItems函数
+	uncheckAllItems(obj);
+}
+// 添加产品checkbox监听事件
+product.addEventListener('click',function () {
+	var ev = ev || window.event;
+	var target = ev.target || ev.srcElement;
+	if (target.nodeName.toLowerCase() === 'input'){
+		switch (target.value){
+			case 'mobile':
+				clickedItems('product','手机',target);
+				break;
+			case 'laptop':
+				clickedItems('product','笔记本',target);
+				break;
+			case 'speaker':
+				clickedItems('product','智能音箱',target);
+				break;
+			case 'all':
+				if (target.checked){
+					// 勾选所有地图checkbox的选项
+					checkAll(productBtn);
+				} else{
+					// 取消勾选所有checkbox的选项
+					uncheckAll(productBtn);
+				}
+				break;
+			default:
+				break;
+		}
+		if (checkSelectedAll(productBtn)) checkAll(productBtn);// 勾选所有地图checkbox的选项
+		// 渲染新的表格
+		addToTable();
+	}
+})
+// 生成checkbox
+function generateCheckboxs(parent, checkbox) {
+	var innerCheckbox = '';
+	for (var i in checkbox) {
+		// 设置checkbox中第一个选项为check
+		var check = i === '0' ? 'checked=checked' : '';
+		innerCheckbox += '<input type=checkbox name=' + checkbox[i].name + ' value=' + checkbox[i].value + ' ' + check + ' />' + checkbox[i].text + ' ';
+	}
+	// 设置innerHTML
+	parent.innerHTML = innerCheckbox;
+}
+
+// 生成地区 checkbox
+generateCheckboxs(area,areaArr);
+// 生成产品 checkbox
+generateCheckboxs(product,productArr);
+// 初始化 table
+addToTable();
+</script>
+</body>
+</html>
